@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BukasBa.UI.Views.StoreDetailsContentView"
+             
+             xmlns:pk="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:jio="clr-namespace:Jara.Xaml.Control.Extension;assembly=Jara.Xaml.ControlExtensions.Xamarin"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             >
+    
+    <ContentView.Content>
+        <Grid BackgroundColor="#7f000000">
+            <pk:PancakeView Margin="50" BackgroundColor="white" CornerRadius="10">
+                <Grid jio:GridEx.RowDefinitions="~ *">
+                    <Grid BackgroundColor="{StaticResource DefaultAccentColor}" HeightRequest="300">
+                        <ff:CachedImage Source="{Binding SelectedStore.ImagePath}" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+
+                        <Grid WidthRequest="48" HeightRequest="48" HorizontalOptions="End" VerticalOptions="Start">
+                            <Label Text="&#xf0156;" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black" Margin="3,3,0,0" Opacity="0.5"/>
+                            <Label Text="&#xf0156;" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White" />
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Command_CloseStoreDetails}" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </Grid>
+
+                    <StackLayout Grid.Row="1">
+                        <Label VerticalOptions="Center" Margin="10">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding SelectedStore.StoreName, FallbackValue='Store Name'}" TextColor="{StaticResource DefaultAccentColor}" FontSize="Large" />
+                                    <Span jio:TextEx.SpanLine="{Binding SelectedStore.Address, FallbackValue='A very long address line here'}" />
+                                    <Span jio:TextEx.SpanLine="{Binding SelectedStore.ContactNumber, FallbackValue='+63 928 392 2938'}" />
+                                    <Span jio:TextEx.SpanLine="" />
+                                    <Span Text="Store Hours: " FontSize="12" />
+                                    <Span Text="{Binding SelectedStore.StoreOpen, FallbackValue='08:00:00', Converter={StaticResource FormatTime}, ConverterParameter='h:mm tt'}" FontSize="12" FontAttributes="Bold" />
+                                    <Span Text=" - " />
+                                    <Span Text="{Binding SelectedStore.StoreClosed, FallbackValue='17:00:00', Converter={StaticResource FormatTime}, ConverterParameter='h:mm tt'}" FontSize="12" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Grid Margin="10,20">
+                            <Button Text="View address on map" Command="{Binding Command_ShowAddressOnMap}" />
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+
+                <pk:PancakeView.Shadow>
+                    <pk:DropShadow BlurRadius="10" Color="#7f000000" />
+                </pk:PancakeView.Shadow>
+            </pk:PancakeView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

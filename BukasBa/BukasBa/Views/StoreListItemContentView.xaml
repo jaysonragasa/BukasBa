@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BukasBa.UI.Views.StoreListItemContentView"
+             
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:pk="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:jio="clr-namespace:Jara.Xaml.Control.Extension;assembly=Jara.Xaml.ControlExtensions.Xamarin"
+             >
+  <ContentView.Content>
+        <Grid jio:GridEx.ColumnDefinitions="~ * ~">
+            <pk:PancakeView CornerRadius="8" BackgroundColor="Gray" WidthRequest="90" HeightRequest="90" VerticalOptions="Center" HorizontalOptions="Center">
+                <ff:CachedImage Source="{Binding ImagePath}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" BitmapOptimizations="True" DownsampleToViewSize="True" />
+            </pk:PancakeView>
+
+            <StackLayout Grid.Column="1" Margin="10,0">
+                <Label VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding StoreName}" TextColor="{StaticResource DefaultAccentColor}" FontSize="Large" />
+                            <Span jio:TextEx.SpanLine="{Binding Address}" />
+                            <Span jio:TextEx.SpanLine="" />
+                            <Span Text="Store Hours: " FontSize="12" />
+                            <Span Text="{Binding StoreOpen, Converter={StaticResource FormatTime}, ConverterParameter='h:mm tt'}" FontSize="12" FontAttributes="Bold" />
+                            <Span Text=" - " />
+                            <Span Text="{Binding StoreClosed, Converter={StaticResource FormatTime}, ConverterParameter='h:mm tt'}" FontSize="12" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+            <Grid Grid.Column="2">
+                <Label Text="&#xf012c;" IsVisible="{Binding IsOpen, Converter={StaticResource ReverseBoolean}}" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,20,0" Opacity="0.15" />
+                <Label Text="&#xf012c;" IsVisible="{Binding IsOpen}" TextColor="Green" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,20,0" />
+            </Grid>
+        </Grid>
+      
+        <!--<Grid>
+            <pk:PancakeView BackgroundColor="White" CornerRadius="10" HeightRequest="100" Margin="0">
+                <Grid jio:GridEx.ColumnDefinitions="~ * ~" Margin="5">
+                    <pk:PancakeView CornerRadius="8" BackgroundColor="Gray" WidthRequest="90" HeightRequest="90" VerticalOptions="Center" HorizontalOptions="Center">
+                        --><!--<ff:CachedImage Source="{Binding ImagePath}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" BitmapOptimizations="True" DownsampleToViewSize="True" />--><!--
+                    </pk:PancakeView>
+
+                    <StackLayout Grid.Column="1" Margin="10,0">
+                        <Label VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding StoreName}" TextColor="{StaticResource DefaultAccentColor}" FontSize="Large" />
+                                    <Span jio:TextEx.SpanLine="{Binding Address}" />
+                                    <Span jio:TextEx.SpanLine="" />
+                                    <Span Text="Store Hours: " FontSize="12" />
+                                    <Span Text="{Binding StoreOpen, Converter={StaticResource FormatTime}, ConverterParameter='h:mm tt'}" FontSize="12" FontAttributes="Bold" />
+                                    <Span Text=" - " />
+                                    <Span Text="{Binding StoreClosed, Converter={StaticResource FormatTime}, ConverterParameter='h:mm tt'}" FontSize="12" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+
+                    <Grid Grid.Column="2">
+                        <Label Text="&#xf012c;" IsVisible="{Binding IsOpen, Converter={StaticResource ReverseBoolean}}" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,20,0" Opacity="0.15" />
+                        <Label Text="&#xf012c;" IsVisible="{Binding IsOpen}" TextColor="Green" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,20,0" />
+                    </Grid>
+                </Grid>
+
+                <pk:PancakeView.Shadow>
+                    <pk:DropShadow BlurRadius="5" Color="#0f000000" />
+                </pk:PancakeView.Shadow>
+            </pk:PancakeView>
+        </Grid>-->
+    </ContentView.Content>
+</ContentView>

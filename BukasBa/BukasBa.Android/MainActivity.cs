@@ -1,11 +1,9 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Android.Runtime;
+using FFImageLoading.Forms.Platform;
 
 namespace BukasBa.Droid
 {
@@ -19,6 +17,10 @@ namespace BukasBa.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental");
+
+            CachedImageRenderer.InitImageViewHandler();
+            CachedImageRenderer.Init(true);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);

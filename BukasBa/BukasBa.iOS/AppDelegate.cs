@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using FFImageLoading.Forms.Platform;
 using Foundation;
 using UIKit;
 
@@ -22,6 +19,12 @@ namespace BukasBa.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+            CachedImageRenderer.InitImageSourceHandler();
+
+            Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental");
+
+
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.Forms.FormsMaterial.Init();
             LoadApplication(new App());

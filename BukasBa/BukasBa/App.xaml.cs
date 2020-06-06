@@ -1,7 +1,5 @@
-﻿using BukasBa.UI.Pages.Store;
-using System;
+﻿using BukasBa.UI.Pages.Customer;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace BukasBa
 {
@@ -11,7 +9,7 @@ namespace BukasBa
         {
             InitializeComponent();
 
-            MainPage = new StoreRegistration();
+            MainPage = new StoreLists();
         }
 
         protected override void OnStart()

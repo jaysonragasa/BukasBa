@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using BukasBa.CoreLibrary.DataSource.Interfaces;
+using GalaSoft.MvvmLight;
 
 namespace BukasBa.CoreLibrary.ViewModels
 {
@@ -9,7 +10,7 @@ namespace BukasBa.CoreLibrary.ViewModels
         #endregion
 
         #region vars
-
+        public IDataLocator _data;
         #endregion
 
         #region properties

@@ -7,10 +7,17 @@
              x:Class="BukasBa.App"
              
              xmlns:vm="clr-namespace:BukasBa.CoreLibrary.ViewModels;assembly=BukasBa.CoreLibrary"
+             xmlns:conv="clr-namespace:BukasBa.UI.Converters"
              >
+    
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" />
+            
+            <!--#region converters-->
+            <conv:Converter_ReverseBoolean x:Key="ReverseBoolean" />
+            <conv:Converter_FormatTime x:Key="FormatTime" />
+            <!--#endregion-->
             
             <!--#region default element styles-->
             <Style TargetType="StackLayout">
@@ -27,6 +34,10 @@
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="Aspect" Value="AspectFit" />
             </Style>
+            <!--#endregion-->
+            
+            <!--#region default colors-->
+            <Color x:Key="DefaultAccentColor">#FF40568D</Color>
             <!--#endregion-->
         </ResourceDictionary>
     </Application.Resources>

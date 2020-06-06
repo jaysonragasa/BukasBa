@@ -1,9 +1,10 @@
-﻿using GalaSoft.MvvmLight;
+﻿using BukasBa.CoreLibrary.Models.Interfaces;
+using GalaSoft.MvvmLight;
 using System;
 
 namespace BukasBa.CoreLibrary.Models
 {
-    public class Model_StoreDetails  : ViewModelBase
+    public class Model_StoreDetails : ViewModelBase, IModelStoreDetails
     {
         public string Id { get; set; }
 

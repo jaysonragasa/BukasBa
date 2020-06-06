@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -32,15 +32,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Customer\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\BukasBa.CoreLibrary\BukasBa.CoreLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\Customer\StoreLists.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Store\StoreRegistration.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StoreDetailsContentView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StoreListItemContentView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
