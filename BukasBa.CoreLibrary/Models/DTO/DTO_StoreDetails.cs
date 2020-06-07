@@ -15,5 +15,6 @@ namespace BukasBa.CoreLibrary.Models.DTO
         public TimeSpan StoreOpen { get; set; }
         public TimeSpan StoreClosed { get; set; }
         public bool IsOpen { get; set; }
+        public string OwnerId { get; set; }
     }
 }

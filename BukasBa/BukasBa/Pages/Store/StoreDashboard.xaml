@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BukasBa.UI.Pages.Store.StoreDashboard"
+             
+             x:Name="this"
+             
+             xmlns:views="clr-namespace:BukasBa.UI.Views"
+             xmlns:pk="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:jio="clr-namespace:Jara.Xaml.Control.Extension;assembly=Jara.Xaml.ControlExtensions.Xamarin"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             
+             Title="Store Lists"
+             BindingContext="{Binding Source={StaticResource Locator}}"
+             Visual="Material"
+             >
+    <ContentPage.Content>
+        <Grid jio:GridEx.RowDefinitions="* ~">
+            <CollectionView ItemsSource="{Binding StoreDashboard.StoreCollections}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <pk:PancakeView BackgroundColor="White" CornerRadius="10" HeightRequest="100" Margin="10">
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItem Text="Close" 
+                                                   Command="{Binding StoreDashboard.Command_CloseStore}"
+                                                   BackgroundColor="#FFD42A27"
+                                                   />
+                                    </SwipeView.LeftItems>
+                                    
+                                    <SwipeView.RightItems>
+                                        <SwipeItem Text="Open" 
+                                                   Command="{Binding StoreDashboard.Command_OpenStore}"
+                                                   BackgroundColor="#FF41D885"
+                                                   />
+                                    </SwipeView.RightItems>
+
+                                    <Grid>
+                                        <views:StoreListItemContentView Margin="5,0" BindingContext="{Binding }" />
+                                    </Grid>
+                                </SwipeView>
+
+                                <pk:PancakeView.Shadow>
+                                    <pk:DropShadow BlurRadius="5" Color="#0f000000" />
+                                </pk:PancakeView.Shadow>
+                            </pk:PancakeView>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.StoreDashboard.Command_ShowDetails, Source={x:Reference this}}" 
+                                                      CommandParameter="{Binding }"
+                                                      />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid Grid.Row="1" Margin="10,20">
+                <Button Text="Create New" Command="{Binding StoreDashboard.Command_CreateStore}" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

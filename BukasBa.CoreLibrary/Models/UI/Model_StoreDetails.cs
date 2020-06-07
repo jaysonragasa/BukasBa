@@ -55,5 +55,7 @@ namespace BukasBa.CoreLibrary.Models
             get { return _isOpen; }
             set { Set(nameof(IsOpen), ref _isOpen, value); }
         }
+
+        public string OwnerId { get; set; } = null;
     }
 }

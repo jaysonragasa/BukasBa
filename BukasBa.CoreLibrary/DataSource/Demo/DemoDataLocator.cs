@@ -4,6 +4,9 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
 {
     public class DemoDataLocator : IDataLocator
     {
+        public string Token { get; set; }
+        public string UserId { get; set; } = null;
+
         public IStoreService StoresService { get; set; }
         public ICustomerService CustomerService { get; set; }
         public IAuthService AuthService { get; set; }

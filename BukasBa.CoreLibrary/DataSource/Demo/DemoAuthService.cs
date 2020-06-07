@@ -14,5 +14,10 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
                 IsOk = true
             };
         }
+
+        public Task<IBaseResponse> RegisterStoreOwner(IModelAuthDetails auth)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

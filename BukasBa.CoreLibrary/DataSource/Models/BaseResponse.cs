@@ -7,6 +7,7 @@ namespace BukasBa.DataSource.Models
     {
         public bool IsOk { get; set; } = false;
         public string Message { get; set; } = string.Empty;
+        public object Response { get; set; } = null;
         public Dictionary<string, string> Attributes { get; set; } = new Dictionary<string, string>();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using BukasBa.CoreLibrary.DataSource.Interfaces;
+using BukasBa.CoreLibrary.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using System.Windows.Input;
 
 namespace BukasBa.CoreLibrary.ViewModels
@@ -16,6 +18,8 @@ namespace BukasBa.CoreLibrary.ViewModels
         #endregion
 
         #region properties
+        public IDialog Dialog { get; set; } = SimpleIoc.Default.GetInstance<IDialog>();
+
         private bool _ShowMessageDialog = false;
         public bool ShowMessageDialog
         {
@@ -35,6 +39,13 @@ namespace BukasBa.CoreLibrary.ViewModels
         {
             get { return _dialogMessage; }
             set { Set(nameof(DialogMessage), ref _dialogMessage, value); }
+        }
+
+        private bool _IsBusy = false;
+        public bool IsBusy
+        {
+            get { return _IsBusy; }
+            set { Set(nameof(IsBusy), ref _IsBusy, value); }
         }
         #endregion
 

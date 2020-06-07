@@ -53,7 +53,8 @@ namespace BukasBa.CoreLibrary.ViewModels
 
             if(result.IsOk)
             {
-
+                _data.Token = result.Attributes["token"];
+                _data.UserId = result.Attributes["localid"];
             }
             else
             {

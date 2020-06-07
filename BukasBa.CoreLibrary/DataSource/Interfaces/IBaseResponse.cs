@@ -6,6 +6,7 @@ namespace BukasBa.CoreLibrary.DataSource.Interfaces
     {
         bool IsOk { get; set; }
         string Message { get; set; }
+        object Response { get; set; }
         Dictionary<string, string> Attributes { get; set; }
     }
 }

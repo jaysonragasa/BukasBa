@@ -1,11 +1,13 @@
-﻿using BukasBa.CoreLibrary.Models;
+﻿using BukasBa.CoreLibrary.DataSource.Interfaces;
+using BukasBa.CoreLibrary.Helpers;
+using BukasBa.CoreLibrary.Models;
+using BukasBa.CoreLibrary.Models.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace BukasBa.CoreLibrary.ViewModels.Store
 {
@@ -13,6 +15,8 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
     {
         #region events
         public EventHandler OnCameraTapped;
+        public EventHandler OnImageGalleryTapped;
+        public EventHandler OnNewStore;
         #endregion
 
         #region vars
@@ -32,19 +36,22 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         public ICommand Command_OpenCamera { get; set; }
         public ICommand Command_Register { get; set; }
         public ICommand Command_OpenMap { get; set; }
+        public ICommand Command_OpenGallery { get; set; }
         #endregion
 
         #region ctors
-        public ViewModel_StoreRegistration()
+        public ViewModel_StoreRegistration(IDataLocator dataLocator)
         {
             InitCommands();
+
+            this._data = dataLocator;
         }
         #endregion
 
         #region command methods
-        void Command_Register_Click()
+        async void Command_Register_Click()
         {
-
+            Save();
         }
 
         void Command_OpenMap_Click()
@@ -56,6 +63,11 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         {
             this.OnCameraTapped?.Invoke(this, null);
         }
+
+        void Command_OpenGallery_Click()
+        {
+            this.OnImageGalleryTapped?.Invoke(this, null);
+        }
         #endregion
 
         #region methods
@@ -66,6 +78,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
             if (Command_Register == null) Command_Register = new RelayCommand(Command_Register_Click);
             if (Command_OpenMap == null) Command_OpenMap = new RelayCommand(Command_OpenMap_Click);
             if (Command_OpenCamera == null) Command_OpenCamera = new RelayCommand(Command_OpenCamera_Click);
+            if (Command_OpenGallery == null) Command_OpenGallery = new RelayCommand(Command_OpenGallery_Click);
         }
 
         void DesignData()
@@ -82,6 +95,67 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         {
 
         }
-        #endregion
+
+        async Task Save()
+        {
+            this.ShowDialog("Saving", "Please wait while uploading and saving your store.");
+
+            string imageurl = string.Empty;
+            bool isimageuploaded = false;
+
+            if (!string.IsNullOrEmpty(this.StoreDetails.ImagePath))
+            {
+                try
+                {
+                    imageurl = await _data.StoresService.UploadFile(this.StoreDetails.ImagePath, _data.Token);
+                    isimageuploaded = true;
+                }
+                catch(Exception ex)
+                {
+                    isimageuploaded = false;
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+            else
+            {
+
+            }
+
+            var store = Mappy.I.Map<IModelStoreDetails>(this.StoreDetails);
+            store.ImagePath = imageurl;
+            store.Id = Guid.NewGuid().ToString();
+            store.OwnerId = _data.UserId;
+
+            var result = await _data.StoresService.CreateNewAsync(store);
+
+            if(result.IsOk)
+            {
+                if (!isimageuploaded)
+                {
+                    await this.Dialog.ShowMessage("There was a problem uploading the image this time but you can always update your store in your store lists.", "Unable to upload", "ok", null);
+                }
+
+                this.StoreDetails.Address = null;
+                this.StoreDetails.ContactNumber = null;
+                this.StoreDetails.Geo_Latitude = 0.0d;
+                this.StoreDetails.Geo_Longitude = 0.0d;
+                this.StoreDetails.ImagePath = null;
+                this.StoreDetails.IsOpen = false;
+                this.StoreDetails.StoreOpen = new TimeSpan(8, 0, 0);
+                this.StoreDetails.StoreClosed = new TimeSpan(17, 0, 0);
+                this.StoreDetails.StoreName = null;
+
+                OnNewStore?.Invoke(this, null);
+            }
+            else
+            {
+                this.HideDialog();
+
+                await this.Dialog.ShowMessage("Unable to save your store at the moment. Please try again", "Hmmm...", "ok", null);
+            }
+
+            this.HideDialog();
+        }
+        #endregion/
     }
 }
