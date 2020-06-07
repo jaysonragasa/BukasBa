@@ -4,72 +4,56 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BukasBa.UI.Pages.Customer.StoreLists"
+             x:Class="BukasBa.UI.Pages.Customer.CustomerDashboard"
+             
              x:Name="this"
              
              xmlns:views="clr-namespace:BukasBa.UI.Views"
              xmlns:pk="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:jio="clr-namespace:Jara.Xaml.Control.Extension;assembly=Jara.Xaml.ControlExtensions.Xamarin"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fft="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              
-             Title="Store Lists"
+             Title="Favorites"
              BindingContext="{Binding Source={StaticResource Locator}}"
              Visual="Material"
              >
-
-    <!--pinoy jeep &#xf0302;-->
-    <!--pin icon &#xf0352;-->
-    <!--map icon &#xf034d;-->
-    <!--check &#xf012c;-->
-
     <ContentPage.Content>
         <Grid>
-            <CollectionView ItemsSource="{Binding StoreLists.StoreCollection}">
+            <CollectionView ItemsSource="{Binding Favorites.StoreCollections}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <pk:PancakeView BackgroundColor="White" CornerRadius="10" HeightRequest="100" Margin="10">
-                                <SwipeView>
-                                    <SwipeView.RightItems>
-                                        <SwipeItem Text="Favorite" 
-                                                   Command="{Binding BindingContext.StoreLists.Command_AddToFavorites, Source={x:Reference this}}"
-                                                   CommandParameter="{Binding }"
-                                                   BackgroundColor="#FFFF9933"
-                                                       />
-
-                                        <SwipeItem Text="Details" 
-                                                   Command="{Binding BindingContext.StoreLists.Command_ShowDetails, Source={x:Reference this}}"
-                                                   CommandParameter="{Binding }"
-                                                   BackgroundColor="#FF25AFF3"
-                                                   />
-                                    </SwipeView.RightItems>
-
-                                    <Grid>
-                                        <views:StoreListItemContentView Margin="5,0"  />
-                                    </Grid>
-                                </SwipeView>
+                                <views:StoreListItemContentView Margin="5,0" BindingContext="{Binding }"  />
 
                                 <pk:PancakeView.Shadow>
                                     <pk:DropShadow BlurRadius="5" Color="#0f000000" />
                                 </pk:PancakeView.Shadow>
                             </pk:PancakeView>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.Favorites.Command_ShowDetails, Source={x:Reference this}}" 
+                                                      CommandParameter="{Binding }"
+                                                      />
+                            </Grid.GestureRecognizers>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
             <!--#region details view-->
-            
+
             <!--this worked-->
-            <Grid IsVisible="{Binding StoreLists.ShowStoreDetails}">
-                <views:StoreDetailsContentView BindingContext="{Binding StoreLists}" />
+            <Grid IsVisible="{Binding Favorites.ShowStoreDetails}">
+                <views:StoreDetailsContentView BindingContext="{Binding Favorites}" />
             </Grid>
-            
+
             <!--this doesn't ..-->
             <!--<views:StoreDetailsContentView 
                 IsVisible="{Binding StoreLists.ShowStoreDetails}" 
                 BindingContext="{Binding StoreLists}" />-->
-            
+
             <!--#endregion-->
         </Grid>
     </ContentPage.Content>

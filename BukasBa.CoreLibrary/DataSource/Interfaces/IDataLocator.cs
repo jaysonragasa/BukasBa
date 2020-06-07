@@ -3,5 +3,6 @@
     public interface IDataLocator
     {
         IStoresService StoresService { get; set; }
+        ICustomerService CustomerService { get; set; }
     }
 }

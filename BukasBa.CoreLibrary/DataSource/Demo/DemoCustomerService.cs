@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BukasBa.CoreLibrary.DataSource.Demo
 {
-    public class DemoStoresService : IStoresService
+    public class DemoCustomerService : ICustomerService
     {
         Random r = new Random(DateTime.Now.Millisecond);
 
-        public async Task<List<IModelStoreDetails>> GetAllAsync()
+        public async Task<List<IModelStoreDetails>> GetAllFavoritesAsync()
         {
             List<IModelStoreDetails> stores = new List<IModelStoreDetails>();
 
@@ -23,7 +23,7 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
             {
                 stores.Add(new DTO_StoreDetails()
                 {
-                    ImagePath = $"https://i.picsum.photos/id/{r.Next(1,100)}/200/200.jpg",
+                    ImagePath = $"https://i.picsum.photos/id/{r.Next(1, 100)}/200/200.jpg",
                     StoreName = storenames[i],
                     Address = address[i],
                     ContactNumber = cpnumber[i],
@@ -36,11 +36,6 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
             }
 
             return stores;
-        }
-
-        public async Task<IModelStoreDetails> CreateNewAsync(IModelStoreDetails store)
-        {
-            return store;
         }
     }
 }

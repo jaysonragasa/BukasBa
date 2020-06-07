@@ -41,7 +41,7 @@
                 <Entry Placeholder="Store Name" Text="{Binding StoreRegistration.StoreDetails.StoreName}" />
 
                 <Grid jio:GridEx.ColumnDefinitions="* ~">
-                    <Entry Placeholder="Address" />
+                    <Entry Placeholder="Address" Text="{Binding StoreRegistration.StoreDetails.Address}" />
 
                     <Grid Grid.Column="1" VerticalOptions="Center" WidthRequest="48" HeightRequest="48" Margin="10,-10,0,0">
                         <Label Text="&#xf12fc;" FontFamily="materialfont" VerticalOptions="Center" HorizontalOptions="Center" FontSize="Large" />

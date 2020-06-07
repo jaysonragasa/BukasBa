@@ -35,7 +35,7 @@ namespace BukasBa.CoreLibrary.ViewModels
             SimpleIoc.Default.Register<ViewModel_StoreDashboard>();
 
             // customer VMs
-            SimpleIoc.Default.Register<ViewModel_Favorites>();
+            SimpleIoc.Default.Register(() => new ViewModel_Favorites(this._dataLocator));
             SimpleIoc.Default.Register(() => new ViewModel_StoreListing(this._dataLocator));
         }
     }

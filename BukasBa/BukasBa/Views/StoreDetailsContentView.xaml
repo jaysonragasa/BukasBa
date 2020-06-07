@@ -23,7 +23,8 @@
                             <Label Text="&#xf0156;" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White" />
 
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Command_CloseStoreDetails}" />
+                                <TapGestureRecognizer Command="{Binding Command_CloseStoreDetails}"
+                                                      />
                             </Grid.GestureRecognizers>
                         </Grid>
                     </Grid>

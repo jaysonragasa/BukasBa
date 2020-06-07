@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 
 namespace BukasBa.CoreLibrary.DataSource.Interfaces
 {
-    public interface IStoresService
+    public interface ICustomerService
     {
-        Task<List<IModelStoreDetails>> GetAllAsync();
-        Task<IModelStoreDetails> CreateNewAsync(IModelStoreDetails store);
+        Task<List<IModelStoreDetails>> GetAllFavoritesAsync();
     }
 }

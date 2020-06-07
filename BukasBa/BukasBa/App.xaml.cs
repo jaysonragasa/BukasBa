@@ -1,4 +1,6 @@
 ﻿using BukasBa.UI.Pages.Customer;
+using BukasBa.UI.Pages.Store;
+
 using Xamarin.Forms;
 
 namespace BukasBa
@@ -9,7 +11,9 @@ namespace BukasBa
         {
             InitializeComponent();
 
-            MainPage = new StoreLists();
+            //MainPage = new StoreRegistration();
+            //MainPage = new StoreLists();
+            MainPage = new CustomerDashboard();
         }
 
         protected override void OnStart()
