@@ -17,7 +17,11 @@ namespace BukasBa.Droid
 
             base.OnCreate(savedInstanceState);
 
-            Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental");
+            Xamarin.Forms.Forms.SetFlags(
+                new string[] {
+                    "SwipeView_Experimental", "RadioButton_Experimental"
+                }
+            );
 
             CachedImageRenderer.InitImageViewHandler();
             CachedImageRenderer.Init(true);

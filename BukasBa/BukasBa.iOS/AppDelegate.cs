@@ -22,7 +22,11 @@ namespace BukasBa.iOS
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             CachedImageRenderer.InitImageSourceHandler();
 
-            Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental");
+            Xamarin.Forms.Forms.SetFlags(
+                new string[] {
+                    "SwipeView_Experimental", "RadioButton_Experimental"
+                }
+            );
 
 
             global::Xamarin.Forms.Forms.Init();

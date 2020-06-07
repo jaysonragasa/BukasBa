@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BukasBa.UI.Pages.Login"
+             
+             xmlns:pk="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:jio="clr-namespace:Jara.Xaml.Control.Extension;assembly=Jara.Xaml.ControlExtensions.Xamarin"
+             
+             BindingContext="{Binding Source={StaticResource Locator}}"
+             Visual="Material"
+             >
+    <ContentPage.Content>
+        <Grid jio:GridEx.RowDefinitions="* ~">
+            <Grid>
+                <Label Text="Bukas Ba?" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <StackLayout Margin="50,0" Spacing="10">
+                    <Entry Placeholder="Username" Text="{Binding Login.AuthDetails.Username}" />
+                    <Entry Placeholder="Password" Text="{Binding Login.AuthDetails.Password}" />
+
+                    <Label Text="Are you a" Margin="0,24,0,0" />
+                    <Grid jio:GridEx.ColumnDefinitions="* *">
+                        <RadioButton Text="Customer" />
+                        <RadioButton Text="Store Owner" Grid.Column="1" IsChecked="{Binding Login.AuthDetails.IsStore}" />
+                    </Grid>
+
+                    <Button Command="{Binding Login.Command_Login}" Text="Login" Margin="0,24,0,0" />
+                    <Grid>
+                        <Label Text="Remember Me" />
+                        <Switch HorizontalOptions="End" IsToggled="{Binding Login.RememberMe}" />
+                    </Grid>
+
+                    <Label Text="Register" HorizontalOptions="Center" Margin="0,24">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Login.Command_Register}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

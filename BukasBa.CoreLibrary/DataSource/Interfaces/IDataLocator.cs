@@ -2,7 +2,8 @@
 {
     public interface IDataLocator
     {
-        IStoresService StoresService { get; set; }
+        IStoreService StoresService { get; set; }
         ICustomerService CustomerService { get; set; }
+        IAuthService AuthService { get; set; }
     }
 }

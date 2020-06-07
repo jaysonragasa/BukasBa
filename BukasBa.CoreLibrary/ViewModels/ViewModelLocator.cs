@@ -21,6 +21,7 @@ namespace BukasBa.CoreLibrary.ViewModels
         #region customer
         public ViewModel_Favorites Favorites => SimpleIoc.Default.GetInstance<ViewModel_Favorites>();
         public ViewModel_StoreListing StoreLists => SimpleIoc.Default.GetInstance<ViewModel_StoreListing>();
+        public ViewModel_Login Login => SimpleIoc.Default.GetInstance<ViewModel_Login>();
         #endregion
 
         public ViewModelLocator()
@@ -29,6 +30,8 @@ namespace BukasBa.CoreLibrary.ViewModels
             _dataLocator = new DemoDataLocator();
 #else
 #endif
+
+            SimpleIoc.Default.Register(() => new ViewModel_Login(this._dataLocator));
 
             // store VMs
             SimpleIoc.Default.Register<ViewModel_StoreRegistration>();

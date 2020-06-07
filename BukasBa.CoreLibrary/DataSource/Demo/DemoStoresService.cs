@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BukasBa.CoreLibrary.DataSource.Demo
 {
-    public class DemoStoresService : IStoresService
+    public class DemoStoresService : IStoreService
     {
         Random r = new Random(DateTime.Now.Millisecond);
 
