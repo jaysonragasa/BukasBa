@@ -8,7 +8,7 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase
     {
         public FirebaseClient _firebaseClient = new FirebaseClient("https://bukasba-fd8a4.firebaseio.com/", new FirebaseOptions()
         {
-            AuthTokenAsyncFactory = () => Task.FromResult("J5ciG9twhvhOODeKnQ4to4wZNXqCq896rUiKOMj3")
+            AuthTokenAsyncFactory = () => Task.FromResult("")
         });
 
         public FirebaseCRUD CRUD { get; set; } = new FirebaseCRUD();
