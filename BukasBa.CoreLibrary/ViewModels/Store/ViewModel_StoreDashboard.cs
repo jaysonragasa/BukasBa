@@ -44,11 +44,14 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         #region command methods
         void Command_CloseStore_Click(Model_StoreDetails store)
         {
+            store.IsOpen = false;
+            this._data.StoresService.UpdateStore(store);
         }
 
         void Command_OpenStore_Click(Model_StoreDetails store)
         {
-
+            store.IsOpen = true;
+            this._data.StoresService.UpdateStore(store);
         }
 
         void Command_ShowDetails_Click(Model_StoreDetails store)

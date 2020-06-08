@@ -74,5 +74,10 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
         {
             return null;
         }
+
+        public Task<IBaseResponse> UpdateStore(IModelStoreDetails store)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

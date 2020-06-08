@@ -27,14 +27,16 @@
                                 <SwipeView>
                                     <SwipeView.LeftItems>
                                         <SwipeItem Text="Close" 
-                                                   Command="{Binding StoreDashboard.Command_CloseStore}"
+                                                   Command="{Binding BindingContext.StoreDashboard.Command_CloseStore, Source={x:Reference this}}"
+                                                   CommandParameter="{Binding }"
                                                    BackgroundColor="#FFD42A27"
                                                    />
                                     </SwipeView.LeftItems>
                                     
                                     <SwipeView.RightItems>
                                         <SwipeItem Text="Open" 
-                                                   Command="{Binding StoreDashboard.Command_OpenStore}"
+                                                   Command="{Binding BindingContext.StoreDashboard.Command_OpenStore, Source={x:Reference this}}"
+                                                   CommandParameter="{Binding }"
                                                    BackgroundColor="#FF41D885"
                                                    />
                                     </SwipeView.RightItems>

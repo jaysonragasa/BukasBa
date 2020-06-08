@@ -67,5 +67,16 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase
 
             return ilist;
         }
+
+        public async Task<IBaseResponse> UpdateStore(IModelStoreDetails store)
+        {
+            BaseResponse response = new BaseResponse();
+
+            var result = await this.CRUD.UpdateAsync("STORES", store.Id, store);
+
+            response.IsOk = result;
+
+            return response;
+        }
     }
 }

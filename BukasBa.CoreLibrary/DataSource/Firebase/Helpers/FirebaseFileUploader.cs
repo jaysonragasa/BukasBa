@@ -11,7 +11,9 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase.Helpers
     public class FirebaseFileUploader
     {
         public string Bucket { get; set; } = "";
-        
+
+        public static Lazy<FirebaseFileUploader> Instance { get; set; } = new Lazy<FirebaseFileUploader>();
+
         public async Task<string> UploadFileAsync(string file, string firebaseToken)
         {
             var stream = File.Open(file, FileMode.Open);
