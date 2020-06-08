@@ -11,5 +11,6 @@ namespace BukasBa.CoreLibrary.DataSource.Interfaces
         Task<List<IModelStoreDetails>> GetAllByAccount(string id);
         Task<IBaseResponse> CreateNewAsync(IModelStoreDetails store);
         Task<IBaseResponse> UpdateStore(IModelStoreDetails store);
+        Task<List<IModelStoreDetails>> GetAllAsync(string storename = "");
     }
 }

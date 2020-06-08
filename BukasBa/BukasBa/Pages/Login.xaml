@@ -11,28 +11,36 @@
              
              BindingContext="{Binding Source={StaticResource Locator}}"
              Visual="Material"
+             
+             Shell.NavBarIsVisible="False"
              >
     <ContentPage.Content>
         <Grid jio:GridEx.RowDefinitions="* ~">
             <Grid>
-                <Label Text="Bukas Ba?" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                <StackLayout VerticalOptions="Center">
+                    <Label Text="Bukas Ba?" FontSize="25" HorizontalOptions="Center" />
+                    <Label Text="Continue as guest if you're not a store owner" HorizontalOptions="Center" />
+                </StackLayout>
             </Grid>
 
             <Grid Grid.Row="1">
                 <StackLayout Margin="50,0" Spacing="10">
-                    <Entry Placeholder="Username" Text="{Binding Login.AuthDetails.Username}" />
-                    <Entry Placeholder="Password" Text="{Binding Login.AuthDetails.Password}" />
+                    <Entry Placeholder="Username" Text="{Binding Login.AuthDetails.Username}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}" />
+                    <Entry Placeholder="Password" Text="{Binding Login.AuthDetails.Password}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}"/>
 
                     <Label Text="Are you a" Margin="0,24,0,0" />
                     <Grid jio:GridEx.ColumnDefinitions="* *">
-                        <RadioButton Text="Customer" />
-                        <RadioButton Text="Store Owner" Grid.Column="1" IsChecked="{Binding Login.AuthDetails.IsStore}" />
+                        <RadioButton Text="Guest" IsChecked="True" />
+                        <RadioButton x:Name="rbStoreOwner" Text="Store Owner" Grid.Column="1" IsChecked="{Binding Login.AuthDetails.IsStore}" />
                     </Grid>
 
-                    <Button Command="{Binding Login.Command_Login}" Text="Login" Margin="0,24,0,0" />
+                    <Grid Margin="0,24,0,0">
+                        <Button Command="{Binding Login.Command_Login}" Text="Login" IsVisible="{Binding IsChecked, Source={x:Reference rbStoreOwner}}"  />
+                        <Button Command="{Binding Login.Command_Login}" Text="Guest" IsVisible="{Binding IsChecked, Source={x:Reference rbStoreOwner}, Converter={StaticResource ReverseBoolean}}"  />
+                    </Grid>
                     <Grid>
                         <Label Text="Remember Me" />
-                        <Switch HorizontalOptions="End" IsToggled="{Binding Login.RememberMe}" />
+                        <Switch HorizontalOptions="End" IsToggled="{Binding Login.RememberMe}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}" />
                     </Grid>
 
                     <Label Text="Register" HorizontalOptions="Center" Margin="0,24">

@@ -1,11 +1,9 @@
 ﻿using BukasBa.CoreLibrary.DataSource.Interfaces;
 using BukasBa.CoreLibrary.Helpers;
 using BukasBa.CoreLibrary.Models;
+
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -42,6 +40,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
         #region commands
         public ICommand Command_ShowDetails { get; set; }
         public ICommand Command_CloseStoreDetails { get; set; }
+        public ICommand Command_Remove { get; set; }
         #endregion
 
         #region ctors
@@ -64,6 +63,19 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
         {
             this.ShowStoreDetails = false;
         }
+
+        async void Command_Remove_Click(Model_StoreDetails store)
+        {
+            var res = await this._data.CustomerService.RemoveToFavorites(store);
+            if(res)
+            {
+                this.StoreCollections.Remove(store);
+            }
+            else
+            {
+                await this.Dialog.ShowMessage("Unable to remove the current item", "Removing item", "ok", null);
+            }
+        }
         #endregion
 
         #region methods
@@ -73,6 +85,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
 
             if (Command_ShowDetails == null) Command_ShowDetails = new RelayCommand<Model_StoreDetails>(Command_ViewStoreDetails_Click);
             if (Command_CloseStoreDetails == null) Command_CloseStoreDetails = new RelayCommand(Command_CloseStoreDetails_Click);
+            if (Command_Remove == null) Command_Remove = new RelayCommand<Model_StoreDetails>(Command_Remove_Click);
         }
 
         void DesignData()

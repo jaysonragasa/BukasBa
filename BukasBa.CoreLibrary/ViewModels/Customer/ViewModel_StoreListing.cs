@@ -34,6 +34,20 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
             get { return _ShowStoreDetails; }
             set { Set(nameof(ShowStoreDetails), ref _ShowStoreDetails, value); }
         }
+
+        private bool _ShowFilterBox = false;
+        public bool ShowFilterBox
+        {
+            get { return _ShowFilterBox; }
+            set { Set(nameof(ShowFilterBox), ref _ShowFilterBox, value); }
+        }
+
+        private string _FilterStoreName = string.Empty;
+        public string FilterStoreName
+        {
+            get { return _FilterStoreName; }
+            set { Set(nameof(FilterStoreName), ref _FilterStoreName, value); }
+        }
         #endregion
 
         #region commands
@@ -41,6 +55,8 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
         public ICommand Command_AddToFavorites { get; set; }
         public ICommand Command_CloseStoreDetails { get; set; }
         public ICommand Command_ShowAddressOnMap { get; set; }
+        public ICommand Command_OpenFilterBox { get; set; }
+        public ICommand Command_ApplyFilter { get; set; }
         #endregion
 
         #region ctors
@@ -60,8 +76,14 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
             this.ShowStoreDetails = true;
         }
 
-        void Command_AddToFavorites_Click(Model_StoreDetails store)
+        async void Command_AddToFavorites_Click(Model_StoreDetails store)
         {
+            var ret = await _data.CustomerService.SaveToFavorites(store);
+            if(ret)
+            {
+                await this.Dialog.ShowMessage("Saved to your favorites", "Saved", "ok", null);
+            }
+
             this.SelectedStore = store;
         }
 
@@ -74,6 +96,17 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
         {
 
         }
+
+        void Command_OpenFilterBox_Click()
+        {
+            this.ShowFilterBox = true;
+        }
+
+        async void Command_ApplyFilter_Click()
+        {
+            await RefreshData(this.FilterStoreName);
+            this.ShowFilterBox = false;
+        }
         #endregion
 
         #region methods
@@ -85,7 +118,8 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
             if (Command_AddToFavorites == null) Command_AddToFavorites = new RelayCommand<Model_StoreDetails>(Command_AddToFavorites_Click);
             if (Command_CloseStoreDetails == null) Command_CloseStoreDetails = new RelayCommand(Command_CloseStoreDetails_Click);
             if (Command_ShowAddressOnMap == null) Command_ShowAddressOnMap = new RelayCommand(Command_ShowAddressOnMap_Click);
-
+            if (Command_OpenFilterBox == null) Command_OpenFilterBox = new RelayCommand(Command_OpenFilterBox_Click);
+            if (Command_ApplyFilter == null) Command_ApplyFilter = new RelayCommand(Command_ApplyFilter_Click);
         }
 
         void DesignData()
@@ -98,9 +132,9 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
 
         }
 
-        public async Task RefreshData()
+        public async Task RefreshData(string storename = "")
         {
-            var stores = await this._data.StoresService.GetAllAsync();
+            var stores = await this._data.StoresService.GetAllAsync(storename);
 
             this.StoreCollection.Clear();
             for (int i = 0; i < stores.Count; i++)

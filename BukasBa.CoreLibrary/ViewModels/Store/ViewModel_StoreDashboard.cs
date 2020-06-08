@@ -56,7 +56,9 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
 
         void Command_ShowDetails_Click(Model_StoreDetails store)
         {
-
+            // TODO
+            // show details where the owner can also update their store.
+            // make sure to update the SelectedImagePath!
         }
 
         void Command_CreateStore_Click()

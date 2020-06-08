@@ -39,9 +39,37 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase
             return response;
         }
 
-        public async Task<List<IModelStoreDetails>> GetAllAsync()
+        public async Task<List<IModelStoreDetails>> GetAllAsync(string storename = "")
         {
-            throw new NotImplementedException();
+            List<IModelStoreDetails> ilist = new List<IModelStoreDetails>();
+
+            var result = await this.CRUD.GetAllAsync<DTO_StoreDetails>("STORES");
+
+            if (result.Any())
+            {
+                if (!string.IsNullOrEmpty(storename))
+                {
+                    var stores = result.Where(x => x.StoreName.ToLower().Contains(storename));
+
+                    //list = ownerstores.Any() ? ownerstores.ToList() : null;
+                    if (stores.Any())
+                    {
+                        for (int i = 0; i < stores.Count(); i++)
+                        {
+                            ilist.Add(stores.ElementAt(i));
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < result.Count(); i++)
+                    {
+                        ilist.Add(result.ElementAt(i));
+                    }
+                }
+            }
+
+            return ilist;
         }
 
         public async Task<List<IModelStoreDetails>> GetAllByAccount(string id)
@@ -77,6 +105,11 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase
             response.IsOk = result;
 
             return response;
+        }
+
+        public Task<List<IModelStoreDetails>> GetAllAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

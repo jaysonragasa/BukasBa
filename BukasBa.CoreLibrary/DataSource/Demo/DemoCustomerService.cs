@@ -37,5 +37,15 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
 
             return stores;
         }
+
+        public Task<bool> RemoveToFavorites(IModelStoreDetails store)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SaveToFavorites(IModelStoreDetails store)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

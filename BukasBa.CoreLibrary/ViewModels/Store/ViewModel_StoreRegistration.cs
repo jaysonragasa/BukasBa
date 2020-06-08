@@ -24,6 +24,10 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         #endregion
 
         #region properties
+        public bool IsUpdate { get; set; } = false;
+
+        public string SelectedImagePath { get; set; } = string.Empty;
+
         private Model_StoreDetails _storeDetails = new Model_StoreDetails();
         public Model_StoreDetails StoreDetails
         {
@@ -51,7 +55,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         #region command methods
         async void Command_Register_Click()
         {
-            Save();
+            await Save();
         }
 
         void Command_OpenMap_Click()
@@ -96,17 +100,27 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
 
         }
 
+        async Task Update()
+        {
+
+        }
+
         async Task Save()
         {
             this.ShowDialog("Saving", "Please wait while uploading and saving your store.");
 
-            string imageurl = string.Empty;
+            string imageurl = this.SelectedImagePath;
             bool isimageuploaded = false;
 
-            if (!string.IsNullOrEmpty(this.StoreDetails.ImagePath))
+            if (!string.IsNullOrEmpty(this.SelectedImagePath))
             {
                 try
                 {
+                    if(this.SelectedImagePath != this.StoreDetails.ImagePath)
+                    {
+                        this.StoreDetails.ImagePath = this.SelectedImagePath;
+                    }
+
                     imageurl = await _data.StoresService.UploadFile(this.StoreDetails.ImagePath, _data.Token);
                     isimageuploaded = true;
                 }
@@ -118,7 +132,9 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
             }
             else
             {
-
+                // will just set this to true if the user 
+                // do not want to upload an image of their store.
+                isimageuploaded = true;
             }
 
             var store = Mappy.I.Map<IModelStoreDetails>(this.StoreDetails);
@@ -144,6 +160,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
                 this.StoreDetails.StoreOpen = new TimeSpan(8, 0, 0);
                 this.StoreDetails.StoreClosed = new TimeSpan(17, 0, 0);
                 this.StoreDetails.StoreName = null;
+                this.SelectedImagePath = null;
 
                 OnNewStore?.Invoke(this, null);
             }

@@ -1,4 +1,5 @@
 ﻿using BukasBa.CoreLibrary.Services;
+using BukasBa.UI;
 using BukasBa.UI.Pages;
 using BukasBa.UI.Pages.Customer;
 using BukasBa.UI.Pages.Store;
@@ -22,7 +23,9 @@ namespace BukasBa
             //MainPage = new Login();
             //MainPage = new CustomerRegistration();
             //MainPage = new StoreOwnerRegistration();
-            MainPage = new StoreDashboard();
+            //MainPage = new StoreDashboard();
+
+            MainPage = new AppShell();
 
             var dlg = SimpleIoc.Default.GetInstance<IDialog>();
             dlg.PageHost = MainPage;

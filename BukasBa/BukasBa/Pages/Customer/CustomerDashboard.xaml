@@ -25,7 +25,19 @@
                     <DataTemplate>
                         <Grid>
                             <pk:PancakeView BackgroundColor="White" CornerRadius="10" HeightRequest="100" Margin="10">
-                                <views:StoreListItemContentView Margin="5,0" BindingContext="{Binding }"  />
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItem Text="Remove" 
+                                                   BackgroundColor="#FFD82C26"
+                                                   Command="{Binding BindingContext.Favorites.Command_Remove, Source={x:Reference this}}"
+                                                   CommandParameter="{Binding }"
+                                                   />
+                                    </SwipeView.RightItems>
+                                    
+                                    <Grid>
+                                        <views:StoreListItemContentView Margin="5,0" BindingContext="{Binding }"  />
+                                    </Grid>
+                                </SwipeView>
 
                                 <pk:PancakeView.Shadow>
                                     <pk:DropShadow BlurRadius="5" Color="#0f000000" />
@@ -40,6 +52,12 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                
+                <CollectionView.EmptyView>
+                    <Grid>
+                        <Label Text="No stores in your favorite list." Margin="20,30" FontSize="30" />
+                    </Grid>
+                </CollectionView.EmptyView>
             </CollectionView>
 
             <!--#region details view-->

@@ -40,7 +40,7 @@ namespace BukasBa.UI.Pages.Store
             if (file.Any())
             {
                 this.srcImage.Source = ImageSource.FromFile(file.Single().Path);
-                ((ViewModelLocator)this.BindingContext).StoreRegistration.StoreDetails.ImagePath = file.Single().Path;
+                ((ViewModelLocator)this.BindingContext).StoreRegistration.SelectedImagePath = file.Single().Path;
             }
         }
 
@@ -56,13 +56,13 @@ namespace BukasBa.UI.Pages.Store
             var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
             {
                 Directory = "BukasBa",
-                Name = "temp.jpg"
+                Name = $"IMGT-{DateTime.Now:yyyyMMdd}-{DateTime.Now:HHmmss}.jpg"
             });
 
             if(file != null)
             {
                 this.srcImage.Source = ImageSource.FromFile(file.Path);
-                ((ViewModelLocator)this.BindingContext).StoreRegistration.StoreDetails.ImagePath = file.Path;
+                ((ViewModelLocator)this.BindingContext).StoreRegistration.SelectedImagePath = file.Path;
             }
         }
     }

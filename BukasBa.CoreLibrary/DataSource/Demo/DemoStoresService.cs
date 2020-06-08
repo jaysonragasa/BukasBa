@@ -23,7 +23,7 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
             {
                 stores.Add(new DTO_StoreDetails()
                 {
-                    ImagePath = $"https://i.picsum.photos/id/{r.Next(1,100)}/200/200.jpg",
+                    ImagePath = $"https://i.picsum.photos/id/{r.Next(1, 100)}/200/200.jpg",
                     StoreName = storenames[i],
                     Address = address[i],
                     ContactNumber = cpnumber[i],
@@ -60,7 +60,7 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
                     Address = address[i],
                     ContactNumber = cpnumber[i],
                     StoreOpen = new TimeSpan(8, 0, 0),
-                    StoreClosed = new TimeSpan(17, 0, 0), 
+                    StoreClosed = new TimeSpan(17, 0, 0),
                     Geo_Latitude = 9.81613,
                     Geo_Longitude = 151.84676,
                     IsOpen = r.Next(0, 50) > 25 ? true : false
@@ -76,6 +76,11 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
         }
 
         public Task<IBaseResponse> UpdateStore(IModelStoreDetails store)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<IModelStoreDetails>> GetAllAsync(string storename = "")
         {
             throw new NotImplementedException();
         }

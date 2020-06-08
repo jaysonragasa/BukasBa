@@ -23,7 +23,7 @@
     <!--check &#xf012c;-->
 
     <ContentPage.Content>
-        <Grid>
+        <Grid jio:GridEx.RowDefinitions="* ~">
             <CollectionView ItemsSource="{Binding StoreLists.StoreCollection}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -56,14 +56,40 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+
+                <CollectionView.EmptyView>
+                    <Grid>
+                        <Label Text="No stores listed." Margin="20,30" FontSize="30" />
+                    </Grid>
+                </CollectionView.EmptyView>
             </CollectionView>
+
+            <Grid Margin="10" Grid.Row="1">
+                <Button Text="Filter" Command="{Binding StoreLists.Command_OpenFilterBox}" />
+            </Grid>
+
+            <!--#region filer-->
+            <Grid jio:GridEx.RowColumn="0 2" IsVisible="{Binding StoreLists.ShowFilterBox}">
+                <Grid BackgroundColor="#7f000000">
+                    <pk:PancakeView Margin="20,100" BackgroundColor="White" CornerRadius="10">
+                        <StackLayout Margin="20" Spacing="10" VerticalOptions="Center">
+                            <Entry Placeholder="Search for store name" Text="{Binding StoreLists.FilterStoreName}" />
+
+                            <Button Text="Apply filter" Command="{Binding StoreLists.Command_ApplyFilter}" />
+                        </StackLayout>
+                    </pk:PancakeView>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
 
             <!--#region details view-->
             
             <!--this worked-->
-            <Grid IsVisible="{Binding StoreLists.ShowStoreDetails}">
+            <Grid IsVisible="{Binding StoreLists.ShowStoreDetails}" jio:GridEx.RowColumn="0 2">
                 <views:StoreDetailsContentView BindingContext="{Binding StoreLists}" />
             </Grid>
+            
+            
             
             <!--this doesn't ..-->
             <!--<views:StoreDetailsContentView 
