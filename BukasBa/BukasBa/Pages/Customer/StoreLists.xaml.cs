@@ -14,5 +14,10 @@ namespace BukasBa.UI.Pages.Customer
 
             ((ViewModelLocator)this.BindingContext).StoreLists.RefreshData();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+        }
     }
 }

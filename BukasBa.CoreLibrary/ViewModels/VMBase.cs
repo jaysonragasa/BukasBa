@@ -19,6 +19,7 @@ namespace BukasBa.CoreLibrary.ViewModels
 
         #region properties
         public IDialog Dialog { get; set; } = SimpleIoc.Default.GetInstance<IDialog>();
+        public INavigation Nav { get; set; } = SimpleIoc.Default.GetInstance<INavigation>();
 
         private bool _ShowMessageDialog = false;
         public bool ShowMessageDialog

@@ -11,16 +11,14 @@ namespace BukasBa.UI.Pages.Customer
         public CustomerDashboard()
         {
             InitializeComponent();
-
-            var t = Task.Run(async () => { await ((ViewModelLocator)this.BindingContext).Favorites.RefreshData(); });
-            t.Wait();
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            
+            var t = Task.Run(async () => { await ((ViewModelLocator)this.BindingContext).Favorites.RefreshData(); });
+            t.Wait();
         }
     }
 }

@@ -134,6 +134,8 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
 
         public async Task RefreshData(string storename = "")
         {
+            this.ShowDialog("Loading stores", "please wait ...");
+
             var stores = await this._data.StoresService.GetAllAsync(storename);
 
             this.StoreCollection.Clear();
@@ -141,6 +143,8 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
             {
                 this.StoreCollection.Add(Mappy.I.Map<Model_StoreDetails>(stores[i]));
             }
+
+            this.HideDialog();
         }
         #endregion
     }

@@ -15,6 +15,8 @@
              Title="Store Lists"
              BindingContext="{Binding Source={StaticResource Locator}}"
              Visual="Material"
+             
+             Shell.TabBarIsVisible="False"
              >
 
     <!--pinoy jeep &#xf0302;-->
@@ -66,6 +68,15 @@
 
             <Grid Margin="10" Grid.Row="1">
                 <Button Text="Filter" Command="{Binding StoreLists.Command_OpenFilterBox}" />
+            </Grid>
+
+            <Grid jio:GridEx.RowColumn="0 2" BackgroundColor="#7f000000" IsVisible="{Binding StoreLists.ShowMessageDialog}">
+                <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                    <StackLayout Margin="20">
+                        <Label Text="{Binding StoreLists.DialogTitle}" FontSize="25" />
+                        <Label Text="{Binding StoreLists.DialogMessage}" FontSize="Default" />
+                    </StackLayout>
+                </Grid>
             </Grid>
 
             <!--#region filer-->

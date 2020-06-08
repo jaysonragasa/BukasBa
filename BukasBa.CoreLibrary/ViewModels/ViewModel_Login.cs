@@ -49,16 +49,23 @@ namespace BukasBa.CoreLibrary.ViewModels
         #region command methods
         async void Command_Login_Click()
         {
-            var result = await this._data.AuthService.LoginAsync(this.AuthDetails);
-
-            if(result.IsOk)
+            if (this.AuthDetails.IsStore)
             {
-                _data.Token = result.Attributes["token"];
-                _data.UserId = result.Attributes["localid"];
+                var result = await this._data.AuthService.LoginAsync(this.AuthDetails);
+
+                if (result.IsOk)
+                {
+                    _data.Token = result.Attributes["token"];
+                    _data.UserId = result.Attributes["localid"];
+                }
+                else
+                {
+                    await this.Dialog.ShowMessage("Unable to login. Please try again", "Login", "ok", null);
+                }
             }
             else
             {
-
+                this.Nav.ShowRoot("main");
             }
         }
 

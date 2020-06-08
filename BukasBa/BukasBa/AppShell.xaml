@@ -32,27 +32,29 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <ShellContent Route="Login"
+    <ShellContent Route="login"
+                  Title="Login"
                   Style="{StaticResource BaseStyle}" 
                   ContentTemplate="{DataTemplate page:Login}" />
 
-    <!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+    <FlyoutItem Route="main" FlyoutDisplayOptions="AsMultipleItems" IsTabStop="False">
         <ShellContent 
+            IsTabStop="False"
             Style="{StaticResource BaseStyle}" 
-            Title="Logn" 
-            ContentTemplate="{DataTemplate page:Login}" />
+            Title="Favorites" 
+            ContentTemplate="{DataTemplate pagec:CustomerDashboard}" />
         
         <ShellContent 
             Style="{StaticResource BaseStyle}" 
-            Title="Basket" 
-            ContentTemplate="{DataTemplate pages:Orders}" />
+            Title="Stores" 
+            ContentTemplate="{DataTemplate pagec:StoreLists}" />
 
-        <ShellContent 
+        <!--<ShellContent 
             Style="{StaticResource BaseStyle}" 
             Title="Saved Orders" 
-            ContentTemplate="{DataTemplate pages:OrderLists}" />
+            ContentTemplate="{DataTemplate pages:OrderLists}" />-->
 
-        <Tab Title="Products">
+        <!--<Tab Title="Products">
             <ShellContent 
                 Style="{StaticResource BaseStyle}" 
                 Title="Products" 
@@ -62,6 +64,6 @@
                 Style="{StaticResource BaseStyle}" 
                 Title="Categories" 
                 ContentTemplate="{DataTemplate prodpages:Categories}" />
-        </Tab>
-    </FlyoutItem>-->
+        </Tab>-->
+    </FlyoutItem>
 </Shell>

@@ -17,6 +17,8 @@
              Title="Favorites"
              BindingContext="{Binding Source={StaticResource Locator}}"
              Visual="Material"
+             
+             Shell.TabBarIsVisible="False"
              >
     <ContentPage.Content>
         <Grid>
