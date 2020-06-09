@@ -59,22 +59,22 @@ namespace BukasBa.CoreLibrary.ViewModels
                 Debug.WriteLine(ex.Message);
             }
 
-            //// temp login
-            //var t = Task.Run(async () =>
-            //{
-            //    var resp = await _dataLocator.AuthService.LoginAsync(new DTO_AuthDetails()
-            //    {
-            //        Username = "jayson@gmail.com",
-            //        Password = "zeroslot"
-            //    });
+            // temp login
+            var t = Task.Run(async () =>
+            {
+                var resp = await _dataLocator.AuthService.LoginAsync(new DTO_AuthDetails()
+                {
+                    Username = "jayson@gmail.com",
+                    Password = "zeroslot"
+                });
 
-            //    if(resp.IsOk)
-            //    {
-            //        _dataLocator.Token = resp.Attributes["token"];
-            //        _dataLocator.UserId = resp.Attributes["localid"];
-            //    }
-            //});
-            //t.Wait();
+                if (resp.IsOk)
+                {
+                    _dataLocator.Token = resp.Attributes["token"];
+                    _dataLocator.UserId = resp.Attributes["localid"];
+                }
+            });
+            t.Wait();
         }
     }
 }

@@ -38,9 +38,7 @@ namespace BukasBa
             //MainPage = new AppShell();
 
             this.Login = new NavigationPage(new Login());
-
             MainPage = this.Login;
-
             var dlg = SimpleIoc.Default.GetInstance<IDialog>();
             dlg.PageHost = this.Login;
         }

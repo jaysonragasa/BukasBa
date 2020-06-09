@@ -108,6 +108,11 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
             await RefreshData(this.FilterStoreName);
             this.ShowFilterBox = false;
         }
+
+        void Command_TapBackdropToClose_Click()
+        {
+            this.ShowFilterBox = false;
+        }
         #endregion
 
         #region methods
@@ -121,6 +126,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
             if (Command_ShowAddressOnMap == null) Command_ShowAddressOnMap = new RelayCommand(Command_ShowAddressOnMap_Click);
             if (Command_OpenFilterBox == null) Command_OpenFilterBox = new RelayCommand(Command_OpenFilterBox_Click);
             if (Command_ApplyFilter == null) Command_ApplyFilter = new RelayCommand(Command_ApplyFilter_Click);
+            if (Command_TapBackdropToClose == null) Command_TapBackdropToClose = new RelayCommand(Command_TapBackdropToClose_Click);
         }
 
         void DesignData()

@@ -34,7 +34,7 @@
 
             <Grid Grid.Column="2">
                 <Label Text="&#xf012c;" IsVisible="{Binding IsOpen, Converter={StaticResource ReverseBoolean}}" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,20,0" Opacity="0.15" />
-                <Label Text="&#xf012c;" IsVisible="{Binding IsOpen}" TextColor="Green" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,20,0" />
+                <Label Text="&#xf012c;" IsVisible="{Binding IsOpen}" TextColor="{StaticResource DefaultThemeAccentColor}" FontFamily="materialfont" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,20,0" />
             </Grid>
         </Grid>
     </ContentView.Content>

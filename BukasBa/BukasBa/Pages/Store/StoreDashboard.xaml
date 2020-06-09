@@ -25,7 +25,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <pk:PancakeView BackgroundColor="White" CornerRadius="10" HeightRequest="100" Margin="10">
+                            <pk:PancakeView BackgroundColor="#FF686868" CornerRadius="10" HeightRequest="100" Margin="10">
                                 <SwipeView>
                                     <SwipeView.LeftItems>
                                         <SwipeItem Text="Close" 
@@ -34,7 +34,7 @@
                                                    BackgroundColor="#FFD42A27"
                                                    />
                                     </SwipeView.LeftItems>
-                                    
+
                                     <SwipeView.RightItems>
                                         <SwipeItem Text="Open" 
                                                    Command="{Binding BindingContext.StoreDashboard.Command_OpenStore, Source={x:Reference this}}"
@@ -45,19 +45,19 @@
 
                                     <Grid>
                                         <views:StoreListItemContentView Margin="5,0" BindingContext="{Binding }" />
+
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.StoreDashboard.Command_ShowDetails, Source={x:Reference this}}" 
+                                                                  CommandParameter="{Binding }"
+                                                                  />
+                                        </Grid.GestureRecognizers>
                                     </Grid>
                                 </SwipeView>
 
                                 <pk:PancakeView.Shadow>
-                                    <pk:DropShadow BlurRadius="5" Color="#0f000000" />
+                                    <pk:DropShadow BlurRadius="5" Color="#7f000000" />
                                 </pk:PancakeView.Shadow>
                             </pk:PancakeView>
-
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding BindingContext.StoreDashboard.Command_ShowDetails, Source={x:Reference this}}" 
-                                                      CommandParameter="{Binding }"
-                                                      />
-                            </Grid.GestureRecognizers>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

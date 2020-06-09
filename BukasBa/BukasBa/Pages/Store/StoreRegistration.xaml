@@ -11,7 +11,7 @@
              
              BindingContext="{Binding Source={StaticResource Locator}}"
              Visual="Material"
-             Title="Register your store"
+             Title="{Binding StoreRegistration.PageTitle}"
              
              Shell.TabBarIsVisible="False"
              >
@@ -21,7 +21,7 @@
             <Grid BackgroundColor="White" HeightRequest="150">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Orientation="Horizontal">
                     <pk:PancakeView CornerRadius="10" BackgroundColor="#FF40568D" WidthRequest="100" HeightRequest="100" VerticalOptions="Center" HorizontalOptions="Center">
-                        <Image x:Name="srcImage" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFill" />
+                        <Image x:Name="srcImage" Source="{Binding StoreRegistration.StoreDetails.ImagePath }" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFill" />
                     </pk:PancakeView>
 
                     <StackLayout VerticalOptions="Center">
@@ -81,7 +81,7 @@
             </StackLayout>
 
             <Grid Grid.Row="2" Margin="10">
-                <Button Text="Register" Command="{Binding StoreRegistration.Command_Register}" />
+                <Button Text="{Binding StoreRegistration.ButtonText}" Command="{Binding StoreRegistration.Command_Register}" />
             </Grid>
 
             <Grid jio:GridEx.RowColumn="0 3" BackgroundColor="#7f000000" IsVisible="{Binding StoreRegistration.ShowMessageDialog}">

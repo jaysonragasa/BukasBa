@@ -2,6 +2,7 @@
 using BukasBa.CoreLibrary.Helpers;
 using BukasBa.CoreLibrary.Models;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,6 +60,14 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
             // TODO
             // show details where the owner can also update their store.
             // make sure to update the SelectedImagePath!
+
+            var vm = SimpleIoc.Default.GetInstance<ViewModel_StoreRegistration>();
+            vm.StoreDetails = store;
+            vm.SelectedImagePath = store.ImagePath;
+            vm.IsUpdate = true;
+            //vm.ReloadImage(store.ImagePath);
+
+            this.Nav.NavigateTo(Enums.Enum_Pages.STOREOWNER_STOREREGISTRATION);
         }
 
         void Command_CreateStore_Click()
@@ -68,8 +77,10 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         #endregion
 
         #region methods
-        void InitCommands()
+        public override void InitCommands()
         {
+            base.InitCommands();
+
             if (Command_CloseStore == null) Command_CloseStore = new RelayCommand<Model_StoreDetails>(Command_CloseStore_Click);
             if (Command_OpenStore == null) Command_OpenStore = new RelayCommand<Model_StoreDetails>(Command_OpenStore_Click);
             if (Command_ShowDetails == null) Command_ShowDetails = new RelayCommand<Model_StoreDetails>(Command_ShowDetails_Click);

@@ -52,6 +52,7 @@ namespace BukasBa.CoreLibrary.ViewModels
 
         #region commands
         public ICommand Command_DialogOk { get; set; }
+        public ICommand Command_TapBackdropToClose { get; set; }
         #endregion
 
         #region command methods

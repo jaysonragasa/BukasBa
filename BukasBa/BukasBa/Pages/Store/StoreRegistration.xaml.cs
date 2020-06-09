@@ -14,13 +14,42 @@ namespace BukasBa.UI.Pages.Store
         public StoreRegistration()
         {
             InitializeComponent();
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnCameraTapped += OpenCamera;
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnImageGalleryTapped += OpenImageGallery;
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnNewStore += ClearImage;
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnReloadPicture += ReloadImage;
+        }
 
-            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnCameraTapped += (s, e) => OpenCamera(s, e);
-            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnImageGalleryTapped += (s, e) => OpenImageGallery(s, e);
-            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnNewStore += (s, e) =>
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnCameraTapped -= OpenCamera;
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnImageGalleryTapped -= OpenImageGallery;
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnNewStore -= ClearImage;
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.OnReloadPicture -= ReloadImage;
+        }
+
+        void ClearImage(object sender, EventArgs e)
+        {
+            ReloadImage(sender, null);
+        }
+
+        void ReloadImage(object sender, string imageurl)
+        {
+            if (!string.IsNullOrEmpty(imageurl))
             {
-                srcImage.Source = "";
-            };
+                srcImage.Source = ImageSource.FromUri(new Uri(imageurl));
+            }
+            else
+            {
+                srcImage.Source = null;
+            }
         }
 
         async void OpenImageGallery(object sender, EventArgs e)

@@ -25,13 +25,13 @@
     <!--check &#xf012c;-->
 
     <ContentPage.Content>
-        <Grid jio:GridEx.RowDefinitions="* ~">
+        <Grid jio:GridEx.RowDefinitions="* ~" BackgroundColor="{StaticResource DefaultBackgroundColor}">
             <CollectionView ItemsSource="{Binding StoreLists.StoreCollection}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <pk:PancakeView BackgroundColor="White" CornerRadius="10" HeightRequest="100" Margin="10">
-                                <SwipeView>
+                            <pk:PancakeView CornerRadius="10" HeightRequest="100" Margin="10">
+                                <SwipeView BackgroundColor="White">
                                     <SwipeView.RightItems>
                                         <SwipeItem Text="Favorite" 
                                                    Command="{Binding BindingContext.StoreLists.Command_AddToFavorites, Source={x:Reference this}}"
@@ -39,20 +39,25 @@
                                                    BackgroundColor="#FFFF9933"
                                                        />
 
-                                        <SwipeItem Text="Details" 
+                                        <!--<SwipeItem Text="Details" 
                                                    Command="{Binding BindingContext.StoreLists.Command_ShowDetails, Source={x:Reference this}}"
                                                    CommandParameter="{Binding }"
                                                    BackgroundColor="#FF25AFF3"
-                                                   />
+                                                   />-->
                                     </SwipeView.RightItems>
 
                                     <Grid>
                                         <views:StoreListItemContentView Margin="5,0"  />
+
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.StoreLists.Command_ShowDetails, Source={x:Reference this}}"
+                                                                  CommandParameter="{Binding }" />
+                                        </Grid.GestureRecognizers>
                                     </Grid>
                                 </SwipeView>
 
                                 <pk:PancakeView.Shadow>
-                                    <pk:DropShadow BlurRadius="5" Color="#0f000000" />
+                                    <pk:DropShadow BlurRadius="5" Color="#7f000000" />
                                 </pk:PancakeView.Shadow>
                             </pk:PancakeView>
                         </Grid>
@@ -87,8 +92,13 @@
                             <Entry Placeholder="Search for store name" Text="{Binding StoreLists.FilterStoreName}" />
 
                             <Button Text="Apply filter" Command="{Binding StoreLists.Command_ApplyFilter}" />
+                            <Button Text="Close" Command="{Binding StoreLists.Command_TapBackdropToClose}" />
                         </StackLayout>
                     </pk:PancakeView>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StoreLists.Command_TapBackdropToClose}" />
+                    </Grid.GestureRecognizers>
                 </Grid>
             </Grid>
             <!--#endregion-->

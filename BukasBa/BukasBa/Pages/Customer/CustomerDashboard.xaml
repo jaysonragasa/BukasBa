@@ -21,13 +21,13 @@
              Shell.TabBarIsVisible="False"
              >
     <ContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="{StaticResource DefaultBackgroundColor}">
             <CollectionView ItemsSource="{Binding Favorites.StoreCollections}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <pk:PancakeView BackgroundColor="White" CornerRadius="10" HeightRequest="100" Margin="10">
-                                <SwipeView>
+                            <pk:PancakeView CornerRadius="10" HeightRequest="100" Margin="10">
+                                <SwipeView BackgroundColor="White">
                                     <SwipeView.RightItems>
                                         <SwipeItem Text="Remove" 
                                                    BackgroundColor="#FFD82C26"
@@ -42,7 +42,7 @@
                                 </SwipeView>
 
                                 <pk:PancakeView.Shadow>
-                                    <pk:DropShadow BlurRadius="5" Color="#0f000000" />
+                                    <pk:DropShadow BlurRadius="5" Color="#7f000000" />
                                 </pk:PancakeView.Shadow>
                             </pk:PancakeView>
 

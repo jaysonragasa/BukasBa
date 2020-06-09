@@ -2,21 +2,22 @@
 using BukasBa.CoreLibrary.Helpers;
 using BukasBa.CoreLibrary.Models;
 using BukasBa.CoreLibrary.Models.Interfaces;
+
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Xml.Linq;
 
 namespace BukasBa.CoreLibrary.ViewModels.Store
 {
     public class ViewModel_StoreRegistration : VMBase
     {
         #region events
-        public EventHandler OnCameraTapped;
-        public EventHandler OnImageGalleryTapped;
-        public EventHandler OnNewStore;
+        public event EventHandler OnCameraTapped;
+        public event EventHandler OnImageGalleryTapped;
+        public event EventHandler OnNewStore;
+        public event EventHandler<string> OnReloadPicture;
         #endregion
 
         #region vars
@@ -24,7 +25,26 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         #endregion
 
         #region properties
-        public bool IsUpdate { get; set; } = false;
+        private bool _IsUpdate = false;
+        public bool IsUpdate
+        {
+            get { return _IsUpdate; }
+            set
+            {
+                _IsUpdate = value;
+
+                if (_IsUpdate)
+                {
+                    PageTitle = "Update Store";
+                    ButtonText = "Update";
+                }
+                else
+                {
+                    PageTitle = "Store Registration";
+                    ButtonText = "Register";
+                }
+            }
+        }
 
         public string SelectedImagePath { get; set; } = string.Empty;
 
@@ -33,6 +53,20 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         {
             get { return _storeDetails; }
             set { Set(nameof(StoreDetails), ref _storeDetails, value); }
+        }
+
+        private string _PageTitle = "Store Registration";
+        public string PageTitle
+        {
+            get { return _PageTitle; }
+            set { Set(nameof(PageTitle), ref _PageTitle, value); }
+        }
+
+        private string _ButtonText = "Register";
+        public string ButtonText
+        {
+            get { return _ButtonText; }
+            set { Set(nameof(ButtonText), ref _ButtonText, value); }
         }
         #endregion
 
@@ -105,6 +139,11 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
 
         }
 
+        public void ReloadImage(string imageurl)
+        {
+            OnReloadPicture?.BeginInvoke(this, imageurl, null, null);
+        }
+
         async Task Save()
         {
             this.ShowDialog("Saving", "Please wait while uploading and saving your store.");
@@ -139,7 +178,12 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
 
             var store = Mappy.I.Map<IModelStoreDetails>(this.StoreDetails);
             store.ImagePath = imageurl;
-            store.Id = Guid.NewGuid().ToString();
+
+            if (!this.IsUpdate)
+            {
+                store.Id = Guid.NewGuid().ToString();
+            }
+
             store.OwnerId = _data.UserId;
 
             var result = await _data.StoresService.CreateNewAsync(store);
@@ -161,8 +205,11 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
                 this.StoreDetails.StoreClosed = new TimeSpan(17, 0, 0);
                 this.StoreDetails.StoreName = null;
                 this.SelectedImagePath = null;
+                this.IsUpdate = false;
 
-                OnNewStore?.Invoke(this, null);
+                //OnNewStore?.Invoke(this, null);
+
+                this.Nav.GoBack();
             }
             else
             {

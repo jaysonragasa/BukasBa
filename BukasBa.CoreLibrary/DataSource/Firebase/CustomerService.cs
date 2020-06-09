@@ -50,7 +50,10 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase
 
                 try
                 {
+                    store.IsOpen = false;
+
                     stores.Insert(store);
+
                     ret = true;
                 }
                 catch(Exception ex)

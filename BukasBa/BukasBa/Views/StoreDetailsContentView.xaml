@@ -55,6 +55,11 @@
                     <pk:DropShadow BlurRadius="10" Color="#7f000000" />
                 </pk:PancakeView.Shadow>
             </pk:PancakeView>
+
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Command_CloseStoreDetails}"
+                                                      />
+            </Grid.GestureRecognizers>
         </Grid>
     </ContentView.Content>
 </ContentView>
