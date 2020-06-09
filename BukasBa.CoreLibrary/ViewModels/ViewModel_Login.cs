@@ -1,6 +1,7 @@
 ﻿using BukasBa.CoreLibrary.DataSource.Interfaces;
 using BukasBa.CoreLibrary.Models.UI;
 using GalaSoft.MvvmLight.Command;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -9,7 +10,9 @@ namespace BukasBa.CoreLibrary.ViewModels
     public class ViewModel_Login : VMBase
     {
         #region events
-
+        public EventHandler OnRegistration;
+        public EventHandler OnLoginSuccess;
+        public EventHandler OnGuest;
         #endregion
 
         #region vars
@@ -57,21 +60,37 @@ namespace BukasBa.CoreLibrary.ViewModels
                 {
                     _data.Token = result.Attributes["token"];
                     _data.UserId = result.Attributes["localid"];
+
+                    //this.Nav.ShowRoot("main");
+                    OnLoginSuccess?.Invoke(this, null);
                 }
                 else
                 {
-                    await this.Dialog.ShowMessage("Unable to login. Please try again", "Login", "ok", null);
+                    string errmsg = result.Message;
+
+                    if (errmsg == "INVALID_PASSWORD") 
+                        await this.Dialog.ShowMessage("Invalid Password.", "Login", "ok", null);
+                    else if (errmsg == "EMAIL_NOT_FOUND") 
+                        await this.Dialog.ShowMessage("Email not registered.", "Login", "ok", null);
+                    else if (errmsg == "INVALID_EMAIL")
+                        await this.Dialog.ShowMessage("Email not in valid format.", "Login", "ok", null);
+                    else if (errmsg.Contains("TOO_MANY_ATTEMPTS_TRY_LATER"))
+                        await this.Dialog.ShowMessage("Too many unsuccessful login attempts. Please try again later.", "Login", "ok", null);
+                    else 
+                        await this.Dialog.ShowMessage("Unable to login. Please try again", "Login", "ok", null);
                 }
             }
             else
             {
-                this.Nav.ShowRoot("main");
+                //this.Nav.ShowRoot("main");
+                OnGuest?.Invoke(this, null);
             }
         }
 
         void Command_Register_Click()
         {
-
+            //this.Nav.NavigateTo(Enums.Enum_Pages.STOREOWNER_REGISTRATION);
+            OnRegistration?.Invoke(this, null);
         }
         #endregion
 

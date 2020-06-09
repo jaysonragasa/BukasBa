@@ -8,6 +8,8 @@ using BukasBa.CoreLibrary.ViewModels.Customer;
 using BukasBa.CoreLibrary.ViewModels.Store;
 
 using GalaSoft.MvvmLight.Ioc;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace BukasBa.CoreLibrary.ViewModels
@@ -17,6 +19,7 @@ namespace BukasBa.CoreLibrary.ViewModels
         IDataLocator _dataLocator;
 
         public ViewModel_Login Login => SimpleIoc.Default.GetInstance<ViewModel_Login>();
+        public ViewModel_Shell Shell => SimpleIoc.Default.GetInstance<ViewModel_Shell>();
 
         #region store
         public ViewModel_StoreRegistration StoreRegistration => SimpleIoc.Default.GetInstance<ViewModel_StoreRegistration>();
@@ -37,34 +40,41 @@ namespace BukasBa.CoreLibrary.ViewModels
 #else
             _dataLocator = new DataLocator();
 #endif
-
-            SimpleIoc.Default.Register(() => new ViewModel_Login(this._dataLocator));
-
-            // store VMs
-            SimpleIoc.Default.Register(() => new ViewModel_StoreRegistration(this._dataLocator));
-            SimpleIoc.Default.Register(() => new ViewModel_StoreDashboard(this._dataLocator));
-
-            // customer VMs
-            SimpleIoc.Default.Register(() => new ViewModel_Favorites(this._dataLocator));
-            SimpleIoc.Default.Register(() => new ViewModel_StoreListing(this._dataLocator));
-            SimpleIoc.Default.Register(() => new ViewModel_StoreOwnerRegistration(this._dataLocator));
-
-            // temp login
-            var t = Task.Run(async () =>
+            try
             {
-                var resp = await _dataLocator.AuthService.LoginAsync(new DTO_AuthDetails()
-                {
-                    Username = "jayson@gmail.com",
-                    Password = "zeroslot"
-                });
+                SimpleIoc.Default.Register(() => new ViewModel_Login(this._dataLocator));
+                SimpleIoc.Default.Register(() => new ViewModel_Shell(this._dataLocator));
 
-                if(resp.IsOk)
-                {
-                    _dataLocator.Token = resp.Attributes["token"];
-                    _dataLocator.UserId = resp.Attributes["localid"];
-                }
-            });
-            t.Wait();
+                // store VMs
+                SimpleIoc.Default.Register(() => new ViewModel_StoreRegistration(this._dataLocator));
+                SimpleIoc.Default.Register(() => new ViewModel_StoreDashboard(this._dataLocator));
+
+                // customer VMs
+                SimpleIoc.Default.Register(() => new ViewModel_Favorites(this._dataLocator));
+                SimpleIoc.Default.Register(() => new ViewModel_StoreListing(this._dataLocator));
+                SimpleIoc.Default.Register(() => new ViewModel_StoreOwnerRegistration(this._dataLocator));
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            //// temp login
+            //var t = Task.Run(async () =>
+            //{
+            //    var resp = await _dataLocator.AuthService.LoginAsync(new DTO_AuthDetails()
+            //    {
+            //        Username = "jayson@gmail.com",
+            //        Password = "zeroslot"
+            //    });
+
+            //    if(resp.IsOk)
+            //    {
+            //        _dataLocator.Token = resp.Attributes["token"];
+            //        _dataLocator.UserId = resp.Attributes["localid"];
+            //    }
+            //});
+            //t.Wait();
         }
     }
 }

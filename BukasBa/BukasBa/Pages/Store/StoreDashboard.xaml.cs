@@ -1,5 +1,4 @@
 ﻿using BukasBa.CoreLibrary.ViewModels;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,12 +13,11 @@ namespace BukasBa.UI.Pages.Store
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            var t = Task.Run(async () => { await ((ViewModelLocator)this.BindingContext).StoreDashboard.RefreshData(); });
-            t.Wait();
+            await ((ViewModelLocator)this.BindingContext).StoreDashboard.RefreshData();
         }
     }
 }

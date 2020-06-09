@@ -11,6 +11,8 @@
              
              BindingContext="{Binding Source={StaticResource Locator}}"
              Visual="Material"
+             
+             Shell.PresentationMode="ModalAnimated"
              >
     <ContentPage.Content>
         <Grid jio:GridEx.RowDefinitions="* ~">
@@ -22,8 +24,8 @@
             </Grid>
             
             <StackLayout Margin="20,20" Grid.Row="1" Spacing="10">
-                <Entry Text="{Binding StoreOwnerReg.AuthDetails.Username}" Placeholder="Username" />
-                <Entry Text="{Binding StoreOwnerReg.AuthDetails.Password}" Placeholder="Password" />
+                <Entry Text="{Binding StoreOwnerReg.AuthDetails.Username}" Placeholder="Email" Keyboard="Email" />
+                <Entry Text="{Binding StoreOwnerReg.AuthDetails.Password}" Placeholder="Password" IsPassword="True" />
                 <Button Text="Register" Command="{Binding StoreOwnerReg.Command_Register}" />
             </StackLayout>
         </Grid>

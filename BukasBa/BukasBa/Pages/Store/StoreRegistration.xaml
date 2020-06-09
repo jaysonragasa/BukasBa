@@ -11,6 +11,9 @@
              
              BindingContext="{Binding Source={StaticResource Locator}}"
              Visual="Material"
+             Title="Register your store"
+             
+             Shell.TabBarIsVisible="False"
              >
     
     <ContentPage.Content>

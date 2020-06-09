@@ -79,6 +79,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
         async void Command_AddToFavorites_Click(Model_StoreDetails store)
         {
             var ret = await _data.CustomerService.SaveToFavorites(store);
+
             if(ret)
             {
                 await this.Dialog.ShowMessage("Saved to your favorites", "Saved", "ok", null);

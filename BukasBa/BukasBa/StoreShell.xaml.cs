@@ -7,13 +7,13 @@ using Xamarin.Forms.Xaml;
 namespace BukasBa.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AppShell : Shell
+    public partial class StoreShell : Shell
     {
-        public AppShell()
+        public StoreShell()
         {
             InitializeComponent();
 
-            ((ViewModelLocator)this.BindingContext).Shell.OnLogin += (s, o) =>
+            ((ViewModelLocator)this.BindingContext).Shell.OnLogout += (o, s) =>
             {
                 ((App)Application.Current).MainPage = ((App)Application.Current).Login;
             };

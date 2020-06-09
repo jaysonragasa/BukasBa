@@ -4,7 +4,7 @@
        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        mc:Ignorable="d"
-       x:Class="BukasBa.UI.AppShell"
+       x:Class="BukasBa.UI.StoreShell"
        
        xmlns:page="clr-namespace:BukasBa.UI.Pages"
        xmlns:pagec="clr-namespace:BukasBa.UI.Pages.Customer"
@@ -34,51 +34,19 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <!--<ShellContent Route="login"
-                  Title="Login"
-                  Style="{StaticResource BaseStyle}" 
-                  ContentTemplate="{DataTemplate page:Login}" />
-
-    <ShellContent Route="ownerreg"
-                  Title="Store Owner Registration"
-                  Style="{StaticResource BaseStyle}" 
-                  ContentTemplate="{DataTemplate pages:StoreOwnerRegistration}" />-->
-
-    <MenuItem Text="Login"
-              Command="{Binding Shell.Command_Login}" />
-
     <FlyoutItem Route="main" FlyoutDisplayOptions="AsMultipleItems" IsTabStop="False">
         <ShellContent 
             IsTabStop="False"
-            Style="{StaticResource BaseStyle}" 
-            Title="Favorites" 
-            ContentTemplate="{DataTemplate pagec:CustomerDashboard}" />
-
-        <ShellContent 
-            Style="{StaticResource BaseStyle}" 
-            Title="Stores" 
-            ContentTemplate="{DataTemplate pagec:StoreLists}" />
-
-        <!--<ShellContent 
             Style="{StaticResource BaseStyle}" 
             Title="Your Stores" 
             ContentTemplate="{DataTemplate pages:StoreDashboard}" />
 
         <ShellContent 
             Style="{StaticResource BaseStyle}" 
-            Title="Register your store" 
-            ContentTemplate="{DataTemplate pages:StoreRegistration}" />-->
-
-        <!--<Tab Title="Products">
-            <ShellContent 
-                Style="{StaticResource BaseStyle}" 
-                Title="Products" 
-                ContentTemplate="{DataTemplate prodpages:Items}" />
-
-            <ShellContent 
-                Style="{StaticResource BaseStyle}" 
-                Title="Categories" 
-                ContentTemplate="{DataTemplate prodpages:Categories}" />
-        </Tab>-->
+            Title="Store Registration" 
+            ContentTemplate="{DataTemplate pages:StoreRegistration}" />
     </FlyoutItem>
+
+    <MenuItem Text="Logout"
+              Command="{Binding Shell.Command_Logout}" />
 </Shell>

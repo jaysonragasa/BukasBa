@@ -63,7 +63,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
 
         void Command_CreateStore_Click()
         {
-
+            this.Nav.NavigateTo(Enums.Enum_Pages.STOREOWNER_STOREREGISTRATION);
         }
         #endregion
 
@@ -88,6 +88,8 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
 
         public async Task RefreshData()
         {
+            this.ShowDialog("Loading your stores", "please wait ...");
+
             var stores = await this._data.StoresService.GetAllByAccount(this._data.UserId);
 
             this.StoreCollections.Clear();
@@ -95,6 +97,8 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
             {
                 this.StoreCollections.Add(Mappy.I.Map<Model_StoreDetails>(stores[i]));
             }
+
+            this.HideDialog();
         }
         #endregion
     }

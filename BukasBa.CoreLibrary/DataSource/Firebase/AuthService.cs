@@ -5,6 +5,7 @@ using BukasBa.DataSource.Models;
 
 using Firebase.Auth;
 using Newtonsoft.Json;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BukasBa.CoreLibrary.DataSource.Firebase
@@ -31,10 +32,15 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase
             }
             catch (FirebaseAuthException ex)
             {
-                string json = ex.ResponseData;
-                var fbr = (FirebaseResponse)JsonConvert.DeserializeObject<FirebaseResponse>(json);
+                string json = ex.ResponseData.TrimStart().TrimEnd();
                 response.IsOk = false;
-                response.Response = fbr.Message;
+                
+                if (!string.IsNullOrEmpty(json) && json.StartsWith("{") && json.EndsWith("}"))
+                {
+                    var fbr = (FirebaseResponse)JsonConvert.DeserializeObject<FirebaseResponse>(json);    
+                    response.Message = fbr.error.message;
+                    response.Response = fbr.error;
+                }
             }
 
             return response;

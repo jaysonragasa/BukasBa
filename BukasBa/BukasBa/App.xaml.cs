@@ -1,5 +1,4 @@
 ﻿using BukasBa.CoreLibrary.Services;
-using BukasBa.UI;
 using BukasBa.UI.Pages;
 using BukasBa.UI.Pages.Customer;
 using BukasBa.UI.Pages.Store;
@@ -11,6 +10,8 @@ namespace BukasBa
 {
     public partial class App : Application
     {
+        public Page Login { get; set; }
+
         public App()
         {
             InitializeComponent();
@@ -34,10 +35,14 @@ namespace BukasBa
             //MainPage = new StoreOwnerRegistration();
             //MainPage = new StoreDashboard();
 
-            MainPage = new AppShell();
+            //MainPage = new AppShell();
+
+            this.Login = new NavigationPage(new Login());
+
+            MainPage = this.Login;
 
             var dlg = SimpleIoc.Default.GetInstance<IDialog>();
-            dlg.PageHost = MainPage;
+            dlg.PageHost = this.Login;
         }
 
         protected override void OnStart()

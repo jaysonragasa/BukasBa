@@ -13,9 +13,11 @@
              xmlns:jio="clr-namespace:Jara.Xaml.Control.Extension;assembly=Jara.Xaml.ControlExtensions.Xamarin"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              
-             Title="Store Lists"
+             Title="Your stores"
              BindingContext="{Binding Source={StaticResource Locator}}"
              Visual="Material"
+             
+             Shell.TabBarIsVisible="False"
              >
     <ContentPage.Content>
         <Grid jio:GridEx.RowDefinitions="* ~">
@@ -59,10 +61,25 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+
+                <CollectionView.EmptyView>
+                    <Grid>
+                        <Label Text="No stores listed. Tap Create New button to start registering your store." Margin="20,30" FontSize="30" />
+                    </Grid>
+                </CollectionView.EmptyView>
             </CollectionView>
 
-            <Grid Grid.Row="1" Margin="10,20">
+            <Grid Grid.Row="1" Margin="10,10">
                 <Button Text="Create New" Command="{Binding StoreDashboard.Command_CreateStore}" />
+            </Grid>
+
+            <Grid jio:GridEx.RowColumn="0 2" BackgroundColor="#7f000000" IsVisible="{Binding StoreDashboard.ShowMessageDialog}">
+                <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                    <StackLayout Margin="20">
+                        <Label Text="{Binding StoreDashboard.DialogTitle}" FontSize="25" />
+                        <Label Text="{Binding StoreDashboard.DialogMessage}" FontSize="Default" />
+                    </StackLayout>
+                </Grid>
             </Grid>
         </Grid>
     </ContentPage.Content>
