@@ -107,6 +107,36 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase
             return response;
         }
 
+        public async Task<IBaseResponse> CheckIfTheseStoresAreOpen(List<IModelStoreDetails> favstores)
+        {
+            List<IModelStoreDetails> stores = favstores;
+            BaseResponse response = new BaseResponse();
+
+            var result = await this.CRUD.GetAllAsync<DTO_StoreDetails>("STORES");
+
+            if(result.Any())
+            {
+                for(int i = 0; i < stores.Count; i++)
+                {
+                    var store = result.Where(x => x.Id == stores[i].Id);
+
+                    if(store.Any())
+                    {
+                        stores[i].IsOpen = store.First().IsOpen;
+                    }
+                }
+
+                response.IsOk = true;
+                response.Response = stores;
+            }
+            else
+            {
+
+            }
+
+            return response;
+        }
+
         public Task<List<IModelStoreDetails>> GetAllAsync()
         {
             throw new NotImplementedException();

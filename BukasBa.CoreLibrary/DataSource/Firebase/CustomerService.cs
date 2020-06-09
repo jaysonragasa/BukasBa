@@ -29,6 +29,8 @@ namespace BukasBa.CoreLibrary.DataSource.Firebase
 
                 for (int i = 0; i < all.Count(); i++)
                 {
+                    all.ElementAt(i).IsOpen = false;
+
                     ret.Add(all.ElementAt(i));
                 }
             }

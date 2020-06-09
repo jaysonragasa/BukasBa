@@ -1,8 +1,9 @@
 ﻿using BukasBa.CoreLibrary.DataSource.Interfaces;
 using BukasBa.CoreLibrary.Helpers;
 using BukasBa.CoreLibrary.Models;
-
+using BukasBa.CoreLibrary.Models.Interfaces;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -100,13 +101,32 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
 
         public async Task RefreshData()
         {
-            var stores = await this._data.CustomerService.GetAllFavoritesAsync();
+            this.ShowDialog("Loading stores", "please wait ...");
 
             this.StoreCollections.Clear();
-            for(int i = 0; i < stores.Count; i++)
+
+            var favstores = await this._data.CustomerService.GetAllFavoritesAsync();
+
+            // check if they are open or not
+            var store = await this._data.StoresService.CheckIfTheseStoresAreOpen(favstores);
+
+            if (store.IsOk)
             {
-                this.StoreCollections.Add(Mappy.I.Map<Model_StoreDetails>(stores[i]));
+                var storelist = ((List<IModelStoreDetails>)store.Response);
+                for (int i = 0; i < storelist.Count; i++)
+                {
+                    this.StoreCollections.Add(Mappy.I.Map<Model_StoreDetails>(storelist[i]));
+                }
             }
+            else
+            {
+                for (int i = 0; i < favstores.Count; i++)
+                {
+                    this.StoreCollections.Add(Mappy.I.Map<Model_StoreDetails>(favstores[i]));
+                }
+            }
+
+            this.HideDialog();
         }
         #endregion
     }

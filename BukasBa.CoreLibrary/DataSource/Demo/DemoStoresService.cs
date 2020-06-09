@@ -84,5 +84,10 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
         {
             throw new NotImplementedException();
         }
+
+        public Task<IBaseResponse> CheckIfTheseStoresAreOpen(List<IModelStoreDetails> favstores)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
