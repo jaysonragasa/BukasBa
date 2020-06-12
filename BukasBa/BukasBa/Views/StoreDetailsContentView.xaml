@@ -52,7 +52,7 @@
                 </Grid>
 
                 <pk:PancakeView.Shadow>
-                    <pk:DropShadow BlurRadius="10" Color="#7f000000" />
+                    <pk:DropShadow BlurRadius="5" Color="#ff000000" />
                 </pk:PancakeView.Shadow>
             </pk:PancakeView>
 

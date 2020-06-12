@@ -81,7 +81,10 @@
             </StackLayout>
 
             <Grid Grid.Row="2" Margin="10">
-                <Button Text="{Binding StoreRegistration.ButtonText}" Command="{Binding StoreRegistration.Command_Register}" />
+                <StackLayout Spacing="10">
+                    <Button Text="{Binding StoreRegistration.ButtonText}" Command="{Binding StoreRegistration.Command_Register}" />
+                    <Button Text="Delete" IsVisible="{Binding StoreRegistration.IsUpdate}" Command="{Binding StoreRegistration.Command_Remove}" />
+                </StackLayout>
             </Grid>
 
             <Grid jio:GridEx.RowColumn="0 3" BackgroundColor="#7f000000" IsVisible="{Binding StoreRegistration.ShowMessageDialog}">

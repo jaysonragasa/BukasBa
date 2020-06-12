@@ -46,26 +46,21 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         void Command_CloseStore_Click(Model_StoreDetails store)
         {
             store.IsOpen = false;
-            this._data.StoresService.UpdateStore(store);
+            this._data.StoresService.UpdateStoreAsync(store);
         }
 
         void Command_OpenStore_Click(Model_StoreDetails store)
         {
             store.IsOpen = true;
-            this._data.StoresService.UpdateStore(store);
+            this._data.StoresService.UpdateStoreAsync(store);
         }
 
         void Command_ShowDetails_Click(Model_StoreDetails store)
         {
-            // TODO
-            // show details where the owner can also update their store.
-            // make sure to update the SelectedImagePath!
-
             var vm = SimpleIoc.Default.GetInstance<ViewModel_StoreRegistration>();
             vm.StoreDetails = store;
             vm.SelectedImagePath = store.ImagePath;
             vm.IsUpdate = true;
-            //vm.ReloadImage(store.ImagePath);
 
             this.Nav.NavigateTo(Enums.Enum_Pages.STOREOWNER_STOREREGISTRATION);
         }
@@ -101,12 +96,18 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         {
             this.ShowDialog("Loading your stores", "please wait ...");
 
-            var stores = await this._data.StoresService.GetAllByAccount(this._data.UserId);
+            var stores = await this._data.StoresService.GetAllByAccountAsync(this._data.UserId);
 
-            this.StoreCollections.Clear();
-            for (int i = 0; i < stores.Count; i++)
+            if (stores.Any())
             {
-                this.StoreCollections.Add(Mappy.I.Map<Model_StoreDetails>(stores[i]));
+                this.StoreCollections.Clear();
+                for (int i = 0; i < stores.Count; i++)
+                {
+                    if (stores[i].IsOperational)
+                    {
+                        this.StoreCollections.Add(Mappy.I.Map<Model_StoreDetails>(stores[i]));
+                    }
+                }
             }
 
             this.HideDialog();

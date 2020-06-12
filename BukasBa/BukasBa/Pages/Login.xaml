@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="BukasBa.UI.Pages.Login"
              
+             xmlns:ctl="clr-namespace:BukasBa.UI.Controls"
              xmlns:pk="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:jio="clr-namespace:Jara.Xaml.Control.Extension;assembly=Jara.Xaml.ControlExtensions.Xamarin"
              
@@ -21,41 +22,43 @@
              BackgroundColor="White"
              >
     <ContentPage.Content>
-        <Grid jio:GridEx.RowDefinitions="* ~">
-            <Grid>
-                <StackLayout VerticalOptions="Center">
-                    <Label Text="Bukas Ba?" FontSize="25" HorizontalOptions="Center" />
-                    <Label Text="Continue as guest if you're not a store owner" HorizontalOptions="Center" />
-                </StackLayout>
+        <ctl:Container x:Name="container" IsLoading="{Binding Login.IsBusy}">
+            <Grid jio:GridEx.RowDefinitions="* ~">
+                <Grid>
+                    <StackLayout VerticalOptions="Center">
+                        <Label Text="Bukas Ba?" FontSize="25" HorizontalOptions="Center" />
+                        <Label Text="Continue as guest if you're not a store owner" HorizontalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <StackLayout Margin="50,0" Spacing="10">
+                        <Entry Placeholder="Email" Text="{Binding Login.AuthDetails.Username}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}" Keyboard="Email" />
+                        <Entry Placeholder="Password" Text="{Binding Login.AuthDetails.Password}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}" IsPassword="True"/>
+
+                        <Label Text="Are you a" Margin="0,24,0,0" />
+                        <Grid jio:GridEx.ColumnDefinitions="* *">
+                            <RadioButton Text="Guest" IsChecked="True" />
+                            <RadioButton x:Name="rbStoreOwner" Text="Store Owner" Grid.Column="1" IsChecked="{Binding Login.AuthDetails.IsStore}" />
+                        </Grid>
+
+                        <Grid Margin="0,24,0,0">
+                            <Button Command="{Binding Login.Command_Login}" Text="Login" IsVisible="{Binding IsChecked, Source={x:Reference rbStoreOwner}}"  />
+                            <Button Command="{Binding Login.Command_Login}" Text="Guest" IsVisible="{Binding IsChecked, Source={x:Reference rbStoreOwner}, Converter={StaticResource ReverseBoolean}}"  />
+                        </Grid>
+                        <Grid>
+                            <Label Text="Remember Me" />
+                            <Switch HorizontalOptions="End" IsToggled="{Binding Login.RememberMe}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}" />
+                        </Grid>
+
+                        <Label Text="Register as store owner." HorizontalOptions="Center" Margin="0,24" TextDecorations="Underline" FontAttributes="Bold">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Login.Command_Register}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
             </Grid>
-
-            <Grid Grid.Row="1">
-                <StackLayout Margin="50,0" Spacing="10">
-                    <Entry Placeholder="Email" Text="{Binding Login.AuthDetails.Username}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}" Keyboard="Email" />
-                    <Entry Placeholder="Password" Text="{Binding Login.AuthDetails.Password}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}" IsPassword="True"/>
-
-                    <Label Text="Are you a" Margin="0,24,0,0" />
-                    <Grid jio:GridEx.ColumnDefinitions="* *">
-                        <RadioButton Text="Guest" IsChecked="True" />
-                        <RadioButton x:Name="rbStoreOwner" Text="Store Owner" Grid.Column="1" IsChecked="{Binding Login.AuthDetails.IsStore}" />
-                    </Grid>
-
-                    <Grid Margin="0,24,0,0">
-                        <Button Command="{Binding Login.Command_Login}" Text="Login" IsVisible="{Binding IsChecked, Source={x:Reference rbStoreOwner}}"  />
-                        <Button Command="{Binding Login.Command_Login}" Text="Guest" IsVisible="{Binding IsChecked, Source={x:Reference rbStoreOwner}, Converter={StaticResource ReverseBoolean}}"  />
-                    </Grid>
-                    <Grid>
-                        <Label Text="Remember Me" />
-                        <Switch HorizontalOptions="End" IsToggled="{Binding Login.RememberMe}" IsEnabled="{Binding IsChecked, Source={x:Reference rbStoreOwner}}" />
-                    </Grid>
-
-                    <Label Text="Register as store owner." HorizontalOptions="Center" Margin="0,24" TextDecorations="Underline" FontAttributes="Bold">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Login.Command_Register}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </StackLayout>
-            </Grid>
-        </Grid>
+        </ctl:Container>
     </ContentPage.Content>
 </ContentPage>

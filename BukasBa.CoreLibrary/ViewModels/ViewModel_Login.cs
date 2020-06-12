@@ -52,6 +52,8 @@ namespace BukasBa.CoreLibrary.ViewModels
         #region command methods
         async void Command_Login_Click()
         {
+            this.IsBusy = true;
+
             if (this.AuthDetails.IsStore)
             {
                 var result = await this._data.AuthService.LoginAsync(this.AuthDetails);
@@ -85,6 +87,9 @@ namespace BukasBa.CoreLibrary.ViewModels
                 //this.Nav.ShowRoot("main");
                 OnGuest?.Invoke(this, null);
             }
+
+            this.IsBusy = false;
+
         }
 
         void Command_Register_Click()

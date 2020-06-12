@@ -108,7 +108,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
             var favstores = await this._data.CustomerService.GetAllFavoritesAsync();
 
             // check if they are open or not
-            var store = await this._data.StoresService.CheckIfTheseStoresAreOpen(favstores);
+            var store = await this._data.StoresService.CheckIfTheseStoresAreOpenAsync(favstores);
 
             if (store.IsOk)
             {

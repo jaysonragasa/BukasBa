@@ -57,5 +57,12 @@ namespace BukasBa.CoreLibrary.Models
         }
 
         public string OwnerId { get; set; } = null;
+
+        private bool _IsOperational = false;
+        public bool IsOperational
+        {
+            get { return _IsOperational; }
+            set { Set(nameof(IsOperational), ref _IsOperational, value); }
+        }
     }
 }

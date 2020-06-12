@@ -43,7 +43,7 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
             return null;
         }
 
-        public async Task<List<IModelStoreDetails>> GetAllByAccount(string id)
+        public async Task<List<IModelStoreDetails>> GetAllByAccountAsync(string id)
         {
             List<IModelStoreDetails> stores = new List<IModelStoreDetails>();
 
@@ -70,12 +70,12 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
             return stores;
         }
 
-        public Task<string> UploadFile(string localimagepath, string token)
+        public Task<string> UploadFileAsync(string localimagepath, string token)
         {
             return null;
         }
 
-        public Task<IBaseResponse> UpdateStore(IModelStoreDetails store)
+        public Task<IBaseResponse> UpdateStoreAsync(IModelStoreDetails store)
         {
             throw new NotImplementedException();
         }
@@ -85,7 +85,12 @@ namespace BukasBa.CoreLibrary.DataSource.Demo
             throw new NotImplementedException();
         }
 
-        public Task<IBaseResponse> CheckIfTheseStoresAreOpen(List<IModelStoreDetails> favstores)
+        public Task<IBaseResponse> CheckIfTheseStoresAreOpenAsync(List<IModelStoreDetails> favstores)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IBaseResponse> DeleteStoreAsync(IModelStoreDetails store)
         {
             throw new NotImplementedException();
         }

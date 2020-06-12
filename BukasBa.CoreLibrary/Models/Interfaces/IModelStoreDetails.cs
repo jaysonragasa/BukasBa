@@ -15,5 +15,6 @@ namespace BukasBa.CoreLibrary.Models.Interfaces
         string StoreName { get; set; }
         TimeSpan StoreOpen { get; set; }
         string OwnerId { get; set; }
+        bool IsOperational { get; set; }
     }
 }

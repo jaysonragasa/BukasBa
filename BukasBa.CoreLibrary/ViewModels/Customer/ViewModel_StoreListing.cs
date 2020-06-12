@@ -148,7 +148,10 @@ namespace BukasBa.CoreLibrary.ViewModels.Customer
             this.StoreCollection.Clear();
             for (int i = 0; i < stores.Count; i++)
             {
-                this.StoreCollection.Add(Mappy.I.Map<Model_StoreDetails>(stores[i]));
+                if (stores[i].IsOperational)
+                {
+                    this.StoreCollection.Add(Mappy.I.Map<Model_StoreDetails>(stores[i]));
+                }
             }
 
             this.HideDialog();

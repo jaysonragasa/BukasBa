@@ -31,9 +31,9 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
             get { return _IsUpdate; }
             set
             {
-                _IsUpdate = value;
+                Set(nameof(IsUpdate), ref _IsUpdate, value);
 
-                if (_IsUpdate)
+                if (value)
                 {
                     PageTitle = "Update Store";
                     ButtonText = "Update";
@@ -75,6 +75,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         public ICommand Command_Register { get; set; }
         public ICommand Command_OpenMap { get; set; }
         public ICommand Command_OpenGallery { get; set; }
+        public ICommand Command_Remove { get; set; }
         #endregion
 
         #region ctors
@@ -106,6 +107,15 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
         {
             this.OnImageGalleryTapped?.Invoke(this, null);
         }
+
+        async void Command_Remove_Click()
+        {
+            await this._data.StoresService.DeleteStoreAsync(this.StoreDetails);
+
+            Clean();
+
+            this.Nav.GoBack();
+        }
         #endregion
 
         #region methods
@@ -117,6 +127,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
             if (Command_OpenMap == null) Command_OpenMap = new RelayCommand(Command_OpenMap_Click);
             if (Command_OpenCamera == null) Command_OpenCamera = new RelayCommand(Command_OpenCamera_Click);
             if (Command_OpenGallery == null) Command_OpenGallery = new RelayCommand(Command_OpenGallery_Click);
+            if (Command_Remove == null) Command_Remove = new RelayCommand(Command_Remove_Click);
         }
 
         void DesignData()
@@ -160,7 +171,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
                         this.StoreDetails.ImagePath = this.SelectedImagePath;
                     }
 
-                    imageurl = await _data.StoresService.UploadFile(this.StoreDetails.ImagePath, _data.Token);
+                    imageurl = await _data.StoresService.UploadFileAsync(this.StoreDetails.ImagePath, _data.Token);
                     isimageuploaded = true;
                 }
                 catch(Exception ex)
@@ -175,6 +186,8 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
                 // do not want to upload an image of their store.
                 isimageuploaded = true;
             }
+
+            this.StoreDetails.IsOperational = true;
 
             var store = Mappy.I.Map<IModelStoreDetails>(this.StoreDetails);
             store.ImagePath = imageurl;
@@ -195,17 +208,7 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
                     await this.Dialog.ShowMessage("There was a problem uploading the image this time but you can always update your store in your store lists.", "Unable to upload", "ok", null);
                 }
 
-                this.StoreDetails.Address = null;
-                this.StoreDetails.ContactNumber = null;
-                this.StoreDetails.Geo_Latitude = 0.0d;
-                this.StoreDetails.Geo_Longitude = 0.0d;
-                this.StoreDetails.ImagePath = null;
-                this.StoreDetails.IsOpen = false;
-                this.StoreDetails.StoreOpen = new TimeSpan(8, 0, 0);
-                this.StoreDetails.StoreClosed = new TimeSpan(17, 0, 0);
-                this.StoreDetails.StoreName = null;
-                this.SelectedImagePath = null;
-                this.IsUpdate = false;
+                Clean();
 
                 //OnNewStore?.Invoke(this, null);
 
@@ -220,6 +223,22 @@ namespace BukasBa.CoreLibrary.ViewModels.Store
 
             this.HideDialog();
         }
-        #endregion/
+
+        public void Clean()
+        {
+            this.StoreDetails.Address = null;
+            this.StoreDetails.ContactNumber = null;
+            this.StoreDetails.Geo_Latitude = 0.0d;
+            this.StoreDetails.Geo_Longitude = 0.0d;
+            this.StoreDetails.ImagePath = null;
+            this.StoreDetails.IsOpen = false;
+            this.StoreDetails.StoreOpen = new TimeSpan(8, 0, 0);
+            this.StoreDetails.StoreClosed = new TimeSpan(17, 0, 0);
+            this.StoreDetails.StoreName = null;
+            this.StoreDetails.IsOperational = false;
+            this.SelectedImagePath = null;
+            this.IsUpdate = false;
+        }
+        #endregion
     }
 }

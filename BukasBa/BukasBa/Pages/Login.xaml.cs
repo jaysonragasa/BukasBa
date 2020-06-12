@@ -14,6 +14,8 @@ namespace BukasBa.UI.Pages
         {
             InitializeComponent();
 
+            container.Init();
+
             ((ViewModelLocator)this.BindingContext).Login.OnRegistration += (s, e) =>
             {
                 this.Navigation.PushModalAsync(new StoreOwnerRegistration());

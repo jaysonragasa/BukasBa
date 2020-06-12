@@ -33,6 +33,8 @@ namespace BukasBa.UI.Pages.Store
             ((ViewModelLocator)this.BindingContext).StoreRegistration.OnImageGalleryTapped -= OpenImageGallery;
             ((ViewModelLocator)this.BindingContext).StoreRegistration.OnNewStore -= ClearImage;
             ((ViewModelLocator)this.BindingContext).StoreRegistration.OnReloadPicture -= ReloadImage;
+
+            ((ViewModelLocator)this.BindingContext).StoreRegistration.Clean();
         }
 
         void ClearImage(object sender, EventArgs e)
